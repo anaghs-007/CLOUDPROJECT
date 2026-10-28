@@ -12,8 +12,28 @@ const pool = new Pool({
   connectionTimeoutMillis: 5000,
 });
 
+pool.on('connect', (client) => {
+  client.on('error', (err) => {
+    if (err.code === '3D000') {
+      console.error(
+        `[db] Database "${process.env.PGDATABASE || 'acscp'}" does not exist. ` +
+        'Create it with: psql -U postgres -c "CREATE DATABASE acscp;" ' +
+        'then run: psql -U postgres -d acscp -f schema.sql',
+      );
+    }
+  });
+});
+
 // Idle-client errors must never crash the process.
 pool.on('error', (err) => {
+  if (err.code === '3D000') {
+    console.error(
+      `[db] Database "${process.env.PGDATABASE || 'acscp'}" does not exist. ` +
+      'Create it with: psql -U postgres -c "CREATE DATABASE acscp;" ' +
+      'then run: psql -U postgres -d acscp -f schema.sql',
+    );
+    return;
+  }
   console.error('[db] idle client error:', err.message);
 });
 

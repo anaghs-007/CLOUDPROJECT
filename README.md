@@ -38,6 +38,8 @@ Create the database and run the schema script:
 ```bash
 psql -U postgres -c "CREATE DATABASE acscp;"
 psql -U postgres -d acscp -f schema.sql
+psql -U postgres -d acscp -f baseline_schema.sql
+psql -U postgres -d acscp -f adaptive_schema.sql
 ```
 
 ### 2. Environment Configuration
@@ -51,7 +53,13 @@ PGUSER=postgres
 PGPASSWORD=postgres
 PGDATABASE=acscp
 PORT=3000
+POLICY_MODE=adaptive
 ```
+
+`POLICY_MODE=adaptive` is the default used by the dashboard and enables the
+adaptive templates. The static control-group modes (`static`, `static_context`,
+and `static_ml`) intentionally reject requests from IP addresses outside the
+configured private CIDRs, which includes local loopback (`127.0.0.1`).
 
 ### 3. Run the Server
 
@@ -255,4 +263,3 @@ LIMIT 10;
 
 SELECT * FROM shadow_decisions ORDER BY created_at DESC LIMIT 20;
 ```
-

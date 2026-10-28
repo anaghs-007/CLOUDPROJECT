@@ -57,7 +57,7 @@ function simulatedHour(req) {
   return source ? date.getUTCHours() : date.getHours();
 }
 
-function firstViolation(req, role, mode = process.env.POLICY_MODE || 'static') {
+function firstViolation(req, role, mode = process.env.POLICY_MODE || 'adaptive') {
   const path = req.path || req.originalUrl.split('?')[0];
   const adminPath = path.startsWith('/api/admin/');
   if (adminPath && role === 'developer') return 'ROLE_BOUNDARY';
@@ -84,7 +84,7 @@ function firstViolation(req, role, mode = process.env.POLICY_MODE || 'static') {
 
 function enforceStaticSCP(req, res, next) {
   const started = process.hrtime.bigint();
-  const mode = process.env.POLICY_MODE || 'static';
+  const mode = process.env.POLICY_MODE || 'adaptive';
   const role = extractRole(req);
   req.role = role;
   const rule = ['static', 'static_context', 'static_ml'].includes(mode)

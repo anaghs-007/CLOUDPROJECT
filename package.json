@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "test": "node ac-scp-project/test.js",
+    "test": "node ac-scp-project/test.js && node test_phase3.js",
     "theta-optimize": "python theta_optimizer.py",
     "validate-templates": "node validate_templates.js",
     "export-results": "node export_results.js"

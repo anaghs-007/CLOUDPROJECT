@@ -79,24 +79,43 @@ function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
   const t2 = templates.find((template) => template.id === 'T2_MINIMAL_ALLOWLIST');
   const t3 = templates.find((template) => template.id === 'T3_WORKLOAD_RESTRICT');
 
+  // Hard organizational boundary: developer cannot access admin
   if (ctx.role === 'developer' && ctx.resource.startsWith('/api/admin')) {
     return { allowed: false, template_id: 'STATIC', reason: 'ROLE_BOUNDARY' };
   }
 
-  if (t1 && ctx.label === 'regulated' && risk >= (theta.tau1 ?? t1.theta.tau1 ?? DEFAULTS.tau1) && !((t1.theta.allowed_regions[ctx.label] || []).includes(ctx.region))) {
+  // T1: Region Lock for regulated/restricted data when risk >= tau1
+  const isRegulated = ctx.label === 'regulated' || ctx.label === 'restricted';
+  const allowedRegions = (t1 && t1.theta && t1.theta.allowed_regions &&
+    (t1.theta.allowed_regions[ctx.label] || t1.theta.allowed_regions['regulated'])) || [];
+  if (t1 && isRegulated && risk >= (theta.tau1 ?? t1.theta.tau1 ?? DEFAULTS.tau1) && !allowedRegions.includes(ctx.region)) {
     return { allowed: false, template_id: t1.id, reason: 'region-lock' };
   }
 
+  // T2: Minimal Allowlist when user risk >= tau2
   if (t2 && risk >= (theta.tau2 ?? t2.theta.tau2 ?? DEFAULTS.tau2)) {
     const allowlisted = (t2.theta.allowlisted_services || []).some((svc) => {
-      if (svc.endsWith('*')) return ctx.resource.startsWith(svc.slice(0, -1));
-      return ctx.resource === svc;
+      const parts = svc.trim().split(/\s+/);
+      let expectedMethod = null;
+      let pattern = svc;
+      if (parts.length === 2) {
+        expectedMethod = parts[0].toUpperCase();
+        pattern = parts[1];
+      }
+      if (expectedMethod && expectedMethod !== ctx.action.toUpperCase()) {
+        return false;
+      }
+      if (pattern.endsWith('*')) {
+        return ctx.resource.startsWith(pattern.slice(0, -1));
+      }
+      return ctx.resource === pattern;
     });
     if (!allowlisted) {
       return { allowed: false, template_id: t2.id, reason: 'allowlist' };
     }
   }
 
+  // T3: Workload Restrict when workload risk >= tau_w or misconfigured
   if (t3 && (workloadRisk >= (theta.tau_w ?? t3.theta.tau_w ?? DEFAULTS.tau_w) || ctx.misconfigured)) {
     if (ctx.action === 'DELETE' || ctx.action === 'POST' || ctx.resource.includes('/api/admin')) {
       return { allowed: false, template_id: t3.id, reason: 'workload-restrict' };
@@ -107,21 +126,21 @@ function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
 }
 
 function adaptivePolicyEngine(req, res, next) {
-  const mode = process.env.POLICY_MODE || 'static';
+  const mode = process.env.POLICY_MODE || 'adaptive';
   if (!['adaptive', 'adaptive_shadow', 'static_context', 'static_ml'].includes(mode)) return next();
   if (process.env.PILOT_TENANT && req.headers['x-tenant-id'] && req.headers['x-tenant-id'] !== process.env.PILOT_TENANT) {
     return next();
   }
 
   const ctx = {
-    role: req.role || 'analyst',
+    role: req.role || req.headers['x-role'] || 'analyst',
     resource: req.originalUrl,
     action: req.method,
     label: req.sensitivityLabel || 'internal',
     region: req.headers['x-region'] || 'us-east',
-    risk_u: Number(req.risk_u || 0),
-    risk_w: Number(req.risk_w || 0),
-    misconfigured: !!req.workloadMisconfigured,
+    risk_u: Number(req.headers['x-risk-u'] || req.risk_u || 0),
+    risk_w: Number(req.headers['x-risk-w'] || req.risk_w || 0),
+    misconfigured: !!(req.headers['x-misconfigured'] === 'true' || req.workloadMisconfigured),
   };
   const decision = evaluateAdaptiveSCP(ctx);
 
@@ -139,8 +158,29 @@ function adaptivePolicyEngine(req, res, next) {
   }
 
   if (!decision.allowed) {
+    if (req.telemetryEntry) {
+      req.telemetryEntry.decision = 'BLOCKED';
+      req.telemetryEntry.enforced_template = decision.template_id;
+      req.telemetryEntry.decision_reason = decision.reason;
+    }
+    if (req.telemetryIdPromise && req.updateTelemetryDecision) {
+      req.telemetryIdPromise.then((id) => {
+        if (id) {
+          req.updateTelemetryDecision(id, 'BLOCKED', 0, ctx.role, {
+            enforced_template: decision.template_id,
+            decision_reason: decision.reason,
+            risk_u_at_decision: ctx.risk_u,
+            risk_w_at_decision: ctx.risk_w,
+          }).catch(() => {});
+        }
+      }).catch(() => {});
+    }
     if (mode === 'adaptive') {
-      return res.set('X-ACSCP-Enforced', 'true').status(403).json({ error: 'adaptive policy violation', rule: decision.reason, template: decision.template_id });
+      return res.set('X-ACSCP-Enforced', 'true').status(403).json({
+        error: 'adaptive policy violation',
+        rule: decision.reason,
+        template: decision.template_id,
+      });
     }
     return next();
   }
