@@ -163,3 +163,96 @@ SELECT episode_id, exposure_seconds, contained
 FROM attack_episodes
 ORDER BY first_malicious_ts;
 ```
+
+## Phase 3A+ paper-method extension
+
+### Objective J(theta)
+
+The objective used in the optimizer is:
+
+```text
+J(theta) = alpha * V + beta * O - gamma * A
+```
+
+- `V`: malicious requests that were allowed
+- `O`: legitimate requests incorrectly blocked
+- `A`: availability (share of legitimate requests served)
+
+Run the optimizer on validation seed 11 and save the best parameters:
+
+```bash
+python theta_optimizer.py
+```
+
+This writes `theta_best.json`, which is loaded automatically by the adaptive engine.
+The defaults are `alpha=1`, `beta=0.5`, and `gamma=0.2`.
+
+### Staged rollout / shadow mode
+
+`POLICY_MODE=adaptive_shadow` evaluates the adaptive rules without enforcing them,
+writing to the `shadow_decisions` table. A pilot tenant gate can be enabled with:
+
+```ini
+POLICY_MODE=adaptive_shadow
+PILOT_TENANT=tenant-a
+```
+
+Pre-deployment validation runs with:
+
+```bash
+node validate_templates.js
+```
+
+This rejects template sets with duplicates, unreachable allowlists, or conflicting
+thresholds such as `tau1 >= tau2`.
+
+### Scenario-based simulator validation
+
+Use the simulator with named scenarios:
+
+```bash
+python simulate_traffic.py --scenario insider_threat --requests 200 --seed 42
+python simulate_traffic.py --scenario misconfiguration --requests 200 --seed 42
+python simulate_traffic.py --scenario workload_migration --requests 200 --seed 42
+python simulate_traffic.py --scenario compliance_change --requests 200 --seed 42
+```
+
+These scenarios exercise insider threats, misconfigurations, workload migration,
+and compliance label changes while preserving the same seeded request stream.
+
+### Ablation modes
+
+The ablation matrix is driven by `POLICY_MODE`:
+
+- `static`: hardcoded static controls only
+- `static_context`: region/time/label predicates without ML risk
+- `static_ml`: risk thresholds without context predicates
+- `adaptive`: full paper method
+
+Run a held-out seed using the same request generator and compare mode outputs.
+
+### Scalability evaluation
+
+Synthetic scales are emulated at 10/25/50/100/200 tenants. The generated benchmark
+object can be exported with:
+
+```bash
+node export_results.js
+```
+
+This writes `benchmark.json` with per-mode violations, exposure samples, risk-score
+history, update-latency samples, ablation rows, and scalability rows for Phase 5.
+
+### Verification
+
+```sql
+SELECT session_id, policy_type, total_requests, violations_missed,
+       violations_blocked, false_denies, avg_exposure_seconds,
+       avg_update_latency_ms, policy_changes
+FROM adaptive_metrics
+ORDER BY created_at DESC
+LIMIT 10;
+
+SELECT * FROM shadow_decisions ORDER BY created_at DESC LIMIT 20;
+```
+

@@ -5,7 +5,10 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "test": "node ac-scp-project/test.js"
+    "test": "node ac-scp-project/test.js",
+    "theta-optimize": "python theta_optimizer.py",
+    "validate-templates": "node validate_templates.js",
+    "export-results": "node export_results.js"
   },
   "dependencies": {
     "dotenv": "^18.0.9",

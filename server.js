@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { pool, insertTelemetry, updateTelemetryDecision } = require('./db');
 const { enforceStaticSCP } = require('./staticPolicyEngine');
+const { adaptivePolicyEngine } = require('./adaptivePolicyEngine');
 
 const app = express();
 app.use(express.json());
@@ -39,6 +40,11 @@ function telemetryInterceptor(req, res, next) {
     sim_label: req.headers['x-sim-label'] || null,
     episode_id: req.headers['x-episode-id'] || null,
     session_id: req.headers['x-session-id'] || null,
+    tenant_id: req.headers['x-tenant-id'] || null,
+    account_id: req.headers['x-account-id'] || null,
+    workload_id: req.headers['x-workload-id'] || null,
+    region: req.headers['x-region'] || null,
+    user_id: req.userId,
   };
   req.telemetryEntry = entry;
   req.updateTelemetryDecision = updateTelemetryDecision;
@@ -46,11 +52,13 @@ function telemetryInterceptor(req, res, next) {
     console.error('[telemetry] insert failed:', err.message);
     return null;
   });
+  req.sensitivityLabel = classify(req.originalUrl);
   next();
 }
 
 app.use(telemetryInterceptor);
 app.use(enforceStaticSCP);
+app.use(adaptivePolicyEngine);
 
 app.get('/api/public/status', (req, res) =>
   res.json({ status: 'ok', label: 'public' }));
@@ -58,6 +66,10 @@ app.post('/api/workload/compute', (req, res) =>
   res.json({ job: 'queued', label: 'internal' }));
 app.delete('/api/admin/storage', (req, res) =>
   res.json({ deleted: true, label: 'restricted' }));
+app.post('/api/iam/assume-role', (req, res) => {
+  req.privilegeEscalation = true;
+  res.json({ ok: true, privilege_escalation: true });
+});
 
 app.use((req, res) => res.status(404).json({ error: 'not found' }));
 

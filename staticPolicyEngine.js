@@ -57,17 +57,28 @@ function simulatedHour(req) {
   return source ? date.getUTCHours() : date.getHours();
 }
 
-function firstViolation(req, role) {
+function firstViolation(req, role, mode = process.env.POLICY_MODE || 'static') {
   const path = req.path || req.originalUrl.split('?')[0];
   const adminPath = path.startsWith('/api/admin/');
   if (adminPath && role === 'developer') return 'ROLE_BOUNDARY';
-  if (adminPath) {
-    const hour = simulatedHour(req);
-    if (hour >= STATIC_SCP_CONFIG.RESTRICTED_HOURS.start || hour < STATIC_SCP_CONFIG.RESTRICTED_HOURS.end) {
+  if (mode === 'static_context' || mode === 'static') {
+    if (adminPath) {
+      const hour = simulatedHour(req);
+      if (hour >= STATIC_SCP_CONFIG.RESTRICTED_HOURS.start || hour < STATIC_SCP_CONFIG.RESTRICTED_HOURS.end) {
+        return 'RESTRICTED_HOURS';
+      }
+    }
+  }
+  if (mode === 'static_context' || mode === 'static') {
+    if (!isAllowedIp(req.ip)) return 'IP_RANGE';
+  }
+  if (mode === 'static_ml') {
+    const riskU = Number(req.headers['x-risk-u'] || req.risk_u || 0);
+    const riskW = Number(req.headers['x-risk-w'] || req.risk_w || 0);
+    if (riskU >= 0.8 || riskW >= 0.8) {
       return 'RESTRICTED_HOURS';
     }
   }
-  if (!isAllowedIp(req.ip)) return 'IP_RANGE';
   return null;
 }
 
@@ -76,7 +87,9 @@ function enforceStaticSCP(req, res, next) {
   const mode = process.env.POLICY_MODE || 'static';
   const role = extractRole(req);
   req.role = role;
-  const rule = mode === 'static' ? firstViolation(req, role) : null;
+  const rule = ['static', 'static_context', 'static_ml'].includes(mode)
+    ? firstViolation(req, role, mode)
+    : null;
   const latency = Number(process.hrtime.bigint() - started) / 1e6;
   req.policyDecision = rule ? 'BLOCKED' : 'ALLOWED';
   req.decisionLatencyMs = latency;
@@ -88,7 +101,18 @@ function enforceStaticSCP(req, res, next) {
   }
   if (req.telemetryIdPromise) {
     req.telemetryIdPromise.then((id) => id && req.updateTelemetryDecision(
-      id, req.policyDecision, latency, role))
+      id, req.policyDecision, latency, role, {
+        tenant_id: req.headers['x-tenant-id'] || null,
+        account_id: req.headers['x-account-id'] || null,
+        workload_id: req.headers['x-workload-id'] || null,
+        region: req.headers['x-region'] || null,
+        effective_ts: req.headers['x-simulated-time'] || new Date().toISOString(),
+        risk_u_at_decision: Number(req.risk_u || 0),
+        risk_w_at_decision: Number(req.risk_w || 0),
+        enforced_template: 'STATIC_SCP',
+        decision_reason: rule || 'none',
+        privilege_escalation: !!req.privilegeEscalation,
+      }))
       .catch((err) => console.error('[policy] telemetry decision update failed:', err.message));
   }
 

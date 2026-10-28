@@ -1,0 +1,36 @@
+{
+  "templates": [
+    {
+      "id": "T1_REGION_LOCK",
+      "type": "REGION_LOCK",
+      "theta": {
+        "tau1": 0.5,
+        "allowed_regions": {
+          "public": ["us-east", "us-west", "eu-central"],
+          "internal": ["us-east", "us-west", "eu-central"],
+          "regulated": ["us-east", "us-west"]
+        }
+      }
+    },
+    {
+      "id": "T2_MINIMAL_ALLOWLIST",
+      "type": "MINIMAL_ALLOWLIST",
+      "theta": {
+        "tau2": 0.8,
+        "delta": 0.1,
+        "N": 3,
+        "allowlisted_services": ["GET /api/public/*", "POST /api/workload/compute"]
+      }
+    },
+    {
+      "id": "T3_WORKLOAD_RESTRICT",
+      "type": "WORKLOAD_RESTRICT",
+      "theta": {
+        "tau_w": 0.6,
+        "delta": 0.1,
+        "N": 3,
+        "write_delete_paths": ["/api/admin/storage", "/api/workload/compute"]
+      }
+    }
+  ]
+}
