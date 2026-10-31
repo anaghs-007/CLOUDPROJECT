@@ -302,12 +302,69 @@ If Docker is unavailable, run Keycloak 26.x with the same realm JSON import:
 bin/kc.bat start-dev --import-realm
 ```
 
+### Manual PowerShell smoke test
+
+Copy the Phase 4 block from `.env.example` into `.env` first. The Python
+commands now load that file automatically; Node and Compose do so natively.
+Run these commands from the repository root in separate terminals:
+
+```powershell
+docker compose down
+docker compose up -d
+do {
+  Start-Sleep -Seconds 2
+  $ready = try { (Invoke-WebRequest http://localhost:8080/health/ready -UseBasicParsing).StatusCode -eq 200 } catch { $false }
+} until ($ready)
+
+psql -U postgres -c "CREATE DATABASE acscp;" 2>$null
+psql -U postgres -d acscp -f schema.sql
+psql -U postgres -d acscp -f baseline_schema.sql
+psql -U postgres -d acscp -f adaptive_schema.sql
+psql -U postgres -d acscp -f identity_enforcement.sql
+```
+
+In terminal 1:
+
+```powershell
+$env:POLICY_MODE="identity"
+$env:REVOCATION_CHECK="backchannel"
+npm start
+```
+
+In terminal 2:
+
+```powershell
+$TOKEN = (Invoke-RestMethod `
+  -Uri "http://localhost:8080/realms/ac-scp-realm/protocol/openid-connect/token" `
+  -Method POST -ContentType "application/x-www-form-urlencoded" `
+  -Body @{ grant_type="password"; client_id="acscp-api"; username="carol"; password="carol-password" }).access_token
+Invoke-WebRequest http://localhost:3000/api/admin/storage `
+  -Headers @{ Authorization="Bearer $TOKEN" }
+```
+
+The response must be `200`. To perform the quarantine action without waiting
+for the scorer to accumulate telemetry, use the supported CLI:
+
+```powershell
+python keycloak_enforcer.py --user carol --risk 1.0 --action quarantine --session-id smoke-carol
+Invoke-WebRequest http://localhost:3000/api/admin/storage `
+  -Headers @{ Authorization="Bearer $TOKEN" } -SkipHttpErrorCheck
+```
+
+The replay must be `401`. Log in again; the new token must not contain
+`admin_access`, and the admin route must be `403`. Restore only after
+`N` consecutive scores below `tau2 - delta`; the CLI intentionally does not
+bypass that hysteresis.
+
 ### Run the identity path
 
 ```bash
 python -m pip install -r requirements.txt
-set POLICY_MODE=identity
+$env:POLICY_MODE="identity"
 npm start
+
+# In another terminal, with the same repository .env:
+$env:POLICY_MODE="identity"
 python risk\risk_engine.py
 python simulate_traffic.py --identity --scenario insider_threat --requests 200 --seed 42
 node compute_adaptive_metrics.js <session-id>

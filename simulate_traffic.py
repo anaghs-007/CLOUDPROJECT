@@ -10,6 +10,9 @@ import uuid
 from collections import defaultdict
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 SCENARIOS = [
     "default",

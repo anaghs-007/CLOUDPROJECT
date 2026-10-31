@@ -2,6 +2,7 @@
   "realm": "ac-scp-realm",
   "enabled": true,
   "accessTokenLifespan": 60,
+  "requiredCredentials": ["password"],
   "roles": {
     "realm": [
       { "name": "developer" },
@@ -9,6 +10,13 @@
       { "name": "admin_access" }
     ]
   },
+  "requiredActions": [
+    { "alias": "UPDATE_PASSWORD", "name": "Update Password", "providerId": "UPDATE_PASSWORD", "enabled": false, "defaultAction": false, "priority": 10 },
+    { "alias": "VERIFY_EMAIL", "name": "Verify Email", "providerId": "VERIFY_EMAIL", "enabled": false, "defaultAction": false, "priority": 50 },
+    { "alias": "UPDATE_PROFILE", "name": "Update Profile", "providerId": "UPDATE_PROFILE", "enabled": false, "defaultAction": false, "priority": 20 },
+    { "alias": "CONFIGURE_TOTP", "name": "Configure OTP", "providerId": "CONFIGURE_TOTP", "enabled": false, "defaultAction": false, "priority": 30 },
+    { "alias": "terms_and_conditions", "name": "Terms and Conditions", "providerId": "terms_and_conditions", "enabled": false, "defaultAction": false, "priority": 40 }
+  ],
   "clients": [
     {
       "clientId": "acscp-api",
@@ -50,48 +58,88 @@
     {
       "username": "alice",
       "enabled": true,
+      "firstName": "Alice",
+      "lastName": "Developer",
+      "email": "alice@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "alice-password", "temporary": false }],
       "realmRoles": ["developer"]
     },
     {
       "username": "bob",
       "enabled": true,
+      "firstName": "Bob",
+      "lastName": "Analyst",
+      "email": "bob@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "bob-password", "temporary": false }],
       "realmRoles": ["analyst"]
     },
     {
       "username": "carol",
       "enabled": true,
+      "firstName": "Carol",
+      "lastName": "Admin",
+      "email": "carol@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "carol-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },
     {
       "username": "sim-user-0",
       "enabled": true,
+      "firstName": "Sim",
+      "lastName": "Zero",
+      "email": "sim-user-0@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },
     {
       "username": "sim-user-1",
       "enabled": true,
+      "firstName": "Sim",
+      "lastName": "One",
+      "email": "sim-user-1@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },
     {
       "username": "sim-user-2",
       "enabled": true,
+      "firstName": "Sim",
+      "lastName": "Two",
+      "email": "sim-user-2@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },
     {
       "username": "sim-user-3",
       "enabled": true,
+      "firstName": "Sim",
+      "lastName": "Three",
+      "email": "sim-user-3@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },
     {
       "username": "sim-user-4",
       "enabled": true,
+      "firstName": "Sim",
+      "lastName": "Four",
+      "email": "sim-user-4@example.com",
+      "emailVerified": true,
+      "requiredActions": [],
       "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
       "realmRoles": ["admin_access"]
     },

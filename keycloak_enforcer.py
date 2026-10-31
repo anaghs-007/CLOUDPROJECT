@@ -6,12 +6,16 @@ latencies include the same calls used by the production path.
 """
 import json
 import os
+import argparse
 import time
 from collections import defaultdict
 from datetime import datetime, timezone
 
 import requests
 import psycopg2
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 
 
 class KeycloakEnforcer:
@@ -223,4 +227,22 @@ def enforce_identity_quarantine(user_id, risk, scored_at, session_id=None):
 
 
 if __name__ == "__main__":
-    raise SystemExit("Import KeycloakEnforcer from the risk engine; do not run this module directly.")
+    parser = argparse.ArgumentParser(description="Apply a Phase 4 identity action.")
+    parser.add_argument("--user", required=True, help="Keycloak username or user id")
+    parser.add_argument("--risk", type=float, default=1.0)
+    parser.add_argument("--action", choices=("quarantine", "restore"), default="quarantine")
+    parser.add_argument("--session-id", default=None)
+    args = parser.parse_args()
+    enforcer = KeycloakEnforcer(session_id=args.session_id)
+    scored_at = datetime.now(timezone.utc)
+    if args.action == "quarantine":
+        changed = enforcer.enforce_identity_quarantine(args.user, args.risk, scored_at)
+    else:
+        changed = enforcer.restore_identity(args.user, args.risk, scored_at)
+    print(json.dumps({
+        "user": args.user,
+        "action": args.action.upper(),
+        "changed": changed,
+        "risk": args.risk,
+        "scored_at": scored_at.isoformat(),
+    }))
