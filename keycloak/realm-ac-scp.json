@@ -1,0 +1,107 @@
+{
+  "realm": "ac-scp-realm",
+  "enabled": true,
+  "accessTokenLifespan": 60,
+  "roles": {
+    "realm": [
+      { "name": "developer" },
+      { "name": "analyst" },
+      { "name": "admin_access" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "acscp-api",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "backchannel.logout.url": "http://host.docker.internal:3000/internal/backchannel-logout",
+        "backchannel.logout.session.required": "true"
+      },
+      "protocolMappers": [
+        {
+          "name": "acscp-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": {
+            "included.client.audience": "acscp-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "risk-engine-service",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "change-me-risk-engine-service",
+      "serviceAccountsEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "standardFlowEnabled": false,
+      "protocol": "openid-connect",
+      "defaultClientScopes": ["profile", "email"]
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "alice-password", "temporary": false }],
+      "realmRoles": ["developer"]
+    },
+    {
+      "username": "bob",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "bob-password", "temporary": false }],
+      "realmRoles": ["analyst"]
+    },
+    {
+      "username": "carol",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "carol-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "sim-user-0",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "sim-user-1",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "sim-user-2",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "sim-user-3",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "sim-user-4",
+      "enabled": true,
+      "credentials": [{ "type": "password", "value": "sim-password", "temporary": false }],
+      "realmRoles": ["admin_access"]
+    },
+    {
+      "username": "service-account-risk-engine-service",
+      "enabled": true,
+      "serviceAccountClientId": "risk-engine-service",
+      "clientRoles": {
+        "realm-management": ["manage-users", "view-users", "query-users"]
+      }
+    }
+  ]
+}

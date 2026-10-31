@@ -5,12 +5,14 @@ const express = require('express');
 const { pool, insertTelemetry, updateTelemetryDecision } = require('./db');
 const { enforceStaticSCP } = require('./staticPolicyEngine');
 const { adaptivePolicyEngine, loadThetaBest, loadTemplates } = require('./adaptivePolicyEngine');
+const { backchannelLogout, keycloakTokenMiddleware } = require('./verifyKeycloakToken');
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.set('trust proxy', true);
 
-// Decode (NOT verify) a JWT payload. Keycloak verification comes in Phase 4.
+// Decode only for the legacy non-identity modes. Identity modes verify below.
 function extractUserId(req) {
   const auth = req.headers['authorization'];
   if (auth && auth.startsWith('Bearer ')) {
@@ -37,6 +39,8 @@ app.get(['/', '/dashboard'], (req, res) => {
   }
   return res.send('AC-SCP Sense Layer Active');
 });
+
+app.post('/internal/backchannel-logout', backchannelLogout);
 
 app.get('/api/dashboard/data', async (req, res) => {
   let logs = [];
@@ -81,6 +85,7 @@ function telemetryInterceptor(req, res, next) {
     account_id: req.headers['x-account-id'] || null,
     workload_id: req.headers['x-workload-id'] || null,
     region: req.headers['x-region'] || null,
+    identity_validation_ms: req.identityValidationMs || null,
   };
   req.telemetryEntry = entry;
   req.updateTelemetryDecision = updateTelemetryDecision;
@@ -92,6 +97,7 @@ function telemetryInterceptor(req, res, next) {
   next();
 }
 
+app.use(keycloakTokenMiddleware);
 app.use(telemetryInterceptor);
 app.use(enforceStaticSCP);
 app.use(adaptivePolicyEngine);

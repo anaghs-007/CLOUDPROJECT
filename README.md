@@ -263,3 +263,84 @@ LIMIT 10;
 
 SELECT * FROM shadow_decisions ORDER BY created_at DESC LIMIT 20;
 ```
+
+## Phase 4 — Keycloak identity-layer enforcement
+
+Phase 4 adds an opt-in identity enforcement path; it does not replace the
+Phase 3 API policy. `identity` enables Keycloak verification, revocation, and
+the risk-engine quarantine action while leaving the Phase 3 risk-cache
+middleware off. `adaptive_identity` enables both layers. The supported modes
+are therefore `none`, `static`, `adaptive`, `identity`, and
+`adaptive_identity` (plus the existing shadow/ablation modes).
+
+### Start Keycloak
+
+Copy the Phase 4 values from `.env.example` into `.env`, set real local
+bootstrap/service credentials, then initialize PostgreSQL and Keycloak:
+
+```bash
+psql -U postgres -c "CREATE DATABASE acscp;"
+psql -U postgres -d acscp -f schema.sql
+psql -U postgres -d acscp -f baseline_schema.sql
+psql -U postgres -d acscp -f adaptive_schema.sql
+psql -U postgres -d acscp -f identity_enforcement.sql
+docker compose up -d keycloak
+```
+
+The pinned image imports [keycloak/realm-ac-scp.json](keycloak/realm-ac-scp.json)
+with realm `ac-scp-realm`, 60-second access tokens, `alice`, `bob`, `carol`,
+and five `sim-user-*` accounts. The API client has direct access grants enabled
+for the simulator only. The service-account client is intended only for the
+Python risk engine and must be assigned `manage-users`, `view-users`, and
+`query-users` under the `realm-management` client roles. Do not expose
+Keycloak's development server in production. `start-dev` data lives in the
+container; removing the container removes the imported development data.
+
+If Docker is unavailable, run Keycloak 26.x with the same realm JSON import:
+
+```bash
+bin/kc.bat start-dev --import-realm
+```
+
+### Run the identity path
+
+```bash
+python -m pip install -r requirements.txt
+set POLICY_MODE=identity
+npm start
+python risk\risk_engine.py
+python simulate_traffic.py --identity --scenario insider_threat --requests 200 --seed 42
+node compute_adaptive_metrics.js <session-id>
+node export_results.js
+```
+
+Use `POLICY_MODE=adaptive_identity` to compare identity enforcement with the
+Phase 3 adaptive API layer. The simulator obtains real direct-grant tokens,
+refreshes them when needed, keeps sending the original token after quarantine,
+and then attempts a fresh login. `privileged_access_regained` should remain
+zero until the hysteresis restore condition is met.
+
+For comparison runs, keep the same seed, request count, scenario, and session
+shape while changing only `POLICY_MODE`. `REVOCATION_CHECK=backchannel` is the
+default; `introspection` verifies tokens against Keycloak on each request for a
+comparison run, and `none` disables the revocation check (signature and expiry
+verification still apply). `benchmark.json` contains identity
+`enforcement_call_ms` and `time_to_effective_ms` mean/std/p95 values,
+per-request token-validation overhead, exposure, and the existing Phase 3
+metrics. `t0` is `risk_score_history.scored_at`; `t1` is
+`identity_enforcement_events.enforced_at`; `t2` is the first rejected request
+recorded in `first_rejected_at`.
+
+Troubleshooting:
+
+- `401 invalid identity token`: verify `KEYCLOAK_ISSUER`, port 8080, and the
+  realm import; delete and recreate only the Keycloak container if a previous
+  import left stale realm data.
+- `403 admin_access role required`: the user has no `admin_access` realm role,
+  or a previously issued token predates role restoration; log in again.
+- Service-account `403`: assign only `manage-users`, `view-users`, and
+  `query-users` in the `realm-management` client roles and verify the service
+  client secret in `.env`.
+- Missing identity rows: run `identity_enforcement.sql` after the Phase 3
+  schemas and confirm the Python process is using the same `.env` and
+  PostgreSQL database as the API.

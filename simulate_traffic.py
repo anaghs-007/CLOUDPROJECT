@@ -2,7 +2,9 @@
 """Deterministic traffic simulator for baseline and adaptive policy benchmarking."""
 import argparse
 import concurrent.futures
+import os
 import random
+import threading
 import time
 import uuid
 from collections import defaultdict
@@ -43,7 +45,48 @@ def build_headers(session_id, rng, scenario, threat, index):
     return headers
 
 
-def build_request(index, rng, session_id, scenario='default', threat=False):
+class KeycloakTokenProvider:
+    def __init__(self):
+        base_url = os.getenv('KEYCLOAK_URL', 'http://localhost:8080').rstrip('/')
+        realm = os.getenv('KEYCLOAK_REALM', 'ac-scp-realm')
+        self.endpoint = os.getenv(
+            'KEYCLOAK_TOKEN_URL',
+            f'{base_url}/realms/{realm}/protocol/openid-connect/token',
+        )
+        self.client_id = os.getenv('KEYCLOAK_API_CLIENT_ID', 'acscp-api')
+        self.password = os.getenv('KEYCLOAK_SIM_PASSWORD', 'sim-password')
+        self.tokens = {}
+        self.lock = threading.Lock()
+
+    def token_for(self, username, force=False):
+        with self.lock:
+            cached = self.tokens.get(username)
+            if cached and not force and cached['expires_at'] > time.time() + 5:
+                return cached['access_token']
+            if cached and cached.get('refresh_token') and not force:
+                response = requests.post(self.endpoint, data={
+                    'grant_type': 'refresh_token',
+                    'client_id': self.client_id,
+                    'refresh_token': cached['refresh_token'],
+                }, timeout=10)
+                if response.ok:
+                    return self._save(username, response.json())
+            response = requests.post(self.endpoint, data={
+                'grant_type': 'password',
+                'client_id': self.client_id,
+                'username': username,
+                'password': self.password,
+            }, timeout=10)
+            response.raise_for_status()
+            return self._save(username, response.json())
+
+    def _save(self, username, payload):
+        payload['expires_at'] = time.time() + int(payload.get('expires_in', 60))
+        self.tokens[username] = payload
+        return payload['access_token']
+
+
+def build_request(index, rng, session_id, scenario='default', threat=False, token=None):
     headers = build_headers(session_id, rng, scenario, threat, index)
     episode = None
     if threat:
@@ -94,6 +137,8 @@ def build_request(index, rng, session_id, scenario='default', threat=False):
     headers['X-Forwarded-For'] = headers.get('X-Forwarded-For', '10.1.0.10')
     headers['X-Region'] = headers.get('X-Region', 'us-east')
     headers['X-Workload-Id'] = headers.get('X-Workload-Id', 'tenant-a-w1')
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
     return index, threat, episode, method, path, headers
 
 
@@ -117,19 +162,24 @@ def main():
     parser.add_argument('--session-id', default=None)
     parser.add_argument('--scenario', default='default', choices=SCENARIOS)
     parser.add_argument('--base-url', default='http://localhost:3000')
+    parser.add_argument('--identity', action='store_true',
+                        help='Use Keycloak direct-grant tokens for every simulated user')
     args = parser.parse_args()
     if not 0 <= args.threat_ratio <= 1:
         parser.error('--threat-ratio must be between 0 and 1')
 
     session_id = args.session_id or f'sim-{uuid.uuid4().hex[:12]}'
     rng = random.Random(args.seed)
+    token_provider = KeycloakTokenProvider() if args.identity else None
     requests_to_send = []
     threat_count = max(1, int(args.requests * args.threat_ratio))
     for idx in range(args.requests):
         threat = idx < threat_count and args.scenario != 'default'
         if args.scenario == 'default':
             threat = rng.random() < args.threat_ratio
-        requests_to_send.append(build_request(idx, rng, session_id, args.scenario, threat))
+        username = f'sim-user-{idx % 5}'
+        token = token_provider.token_for(username) if token_provider else None
+        requests_to_send.append(build_request(idx, rng, session_id, args.scenario, threat, token))
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=min(32, max(1, args.requests))) as executor:
         results = list(executor.map(lambda item: send(args.base_url, item), requests_to_send))
@@ -155,6 +205,19 @@ def main():
     print(f'blocked_threats={blocked_threats} MISSED_threats={missed}')
     print(f'avg_latency_ms={avg_latency:.3f}')
     print(f'avg_exposure_per_episode={sum(exposures) / max(1, len(exposures)) / 1000:.3f}s')
+    if token_provider:
+        regain_attempts = 0
+        regained = 0
+        for username in sorted({f'sim-user-{idx % 5}' for idx in range(args.requests)}):
+            token = token_provider.token_for(username, force=True)
+            response = requests.get(
+                f'{args.base_url}/api/admin/storage',
+                headers={'Authorization': f'Bearer {token}', 'X-Session-Id': session_id},
+                timeout=10,
+            )
+            regain_attempts += 1
+            regained += int(response.status_code < 400)
+        print(f'relogin_attempts={regain_attempts} privileged_access_regained={regained}')
 
 
 if __name__ == '__main__':

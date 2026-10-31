@@ -43,8 +43,8 @@ async function insertTelemetry(entry) {
      sim_label, episode_id, session_id, decision, decision_latency_ms,
      tenant_id, account_id, workload_id, region, effective_ts,
      risk_u_at_decision, risk_w_at_decision, enforced_template,
-     decision_reason, privilege_escalation)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)
+     decision_reason, privilege_escalation, identity_validation_ms)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22)
     RETURNING id`;
   const result = await pool.query(sql, [
     entry.user_id,
@@ -68,6 +68,7 @@ async function insertTelemetry(entry) {
     entry.enforced_template || null,
     entry.decision_reason || null,
     entry.privilege_escalation ?? false,
+    entry.identity_validation_ms ?? null,
   ]);
   return result.rows[0].id;
 }
@@ -140,10 +141,26 @@ async function insertShadowDecision(entry) {
   );
 }
 
+async function updateIdentityFirstRejected(userId) {
+  return pool.query(
+    `UPDATE identity_enforcement_events
+     SET first_rejected_at = COALESCE(first_rejected_at, NOW()),
+         time_to_effective_ms = COALESCE(time_to_effective_ms,
+           EXTRACT(EPOCH FROM (NOW() - scored_at)) * 1000)
+     WHERE id = (
+       SELECT id FROM identity_enforcement_events
+       WHERE user_id = $1 AND action = 'QUARANTINE'
+       ORDER BY enforced_at DESC LIMIT 1
+     )`,
+    [userId],
+  );
+}
+
 module.exports = {
   pool,
   insertTelemetry,
   updateTelemetryDecision,
   insertBaselineViolation,
   insertShadowDecision,
+  updateIdentityFirstRejected,
 };

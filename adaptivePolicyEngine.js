@@ -127,7 +127,12 @@ function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
 
 function adaptivePolicyEngine(req, res, next) {
   const mode = process.env.POLICY_MODE || 'adaptive';
-  if (!['adaptive', 'adaptive_shadow', 'static_context', 'static_ml'].includes(mode)) return next();
+
+  // In pure 'identity' mode, Keycloak is the sole enforcement mechanism.
+  // The Phase 3 risk-cache predicates must NOT run so results are attributable
+  // exclusively to the identity layer. Only 'adaptive_identity' combines both.
+  if (!['adaptive', 'adaptive_identity', 'adaptive_shadow', 'static_context', 'static_ml'].includes(mode)) return next();
+
   if (process.env.PILOT_TENANT && req.headers['x-tenant-id'] && req.headers['x-tenant-id'] !== process.env.PILOT_TENANT) {
     return next();
   }
@@ -175,7 +180,7 @@ function adaptivePolicyEngine(req, res, next) {
         }
       }).catch(() => {});
     }
-    if (mode === 'adaptive') {
+    if (mode === 'adaptive' || mode === 'adaptive_identity') {
       return res.set('X-ACSCP-Enforced', 'true').status(403).json({
         error: 'adaptive policy violation',
         rule: decision.reason,
