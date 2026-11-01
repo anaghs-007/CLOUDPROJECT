@@ -5,12 +5,20 @@ const express = require('express');
 const { pool, insertTelemetry, updateTelemetryDecision } = require('./db');
 const { enforceStaticSCP } = require('./staticPolicyEngine');
 const { adaptivePolicyEngine, loadThetaBest, loadTemplates } = require('./adaptivePolicyEngine');
-const { backchannelLogout, keycloakTokenMiddleware } = require('./verifyKeycloakToken');
+const { backchannelLogout, keycloakTokenMiddleware, revoked } = require('./verifyKeycloakToken');
 
 const app = express();
+const pendingTelemetryWrites = new Set();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set('trust proxy', true);
+app.use((req, res, next) => {
+  const requestedMode = req.headers['x-policy-mode'];
+  req.policyMode = process.env.BENCHMARK_MODE_HEADER === 'true' && requestedMode
+    ? requestedMode
+    : process.env.POLICY_MODE || 'adaptive';
+  next();
+});
 
 // Decode only for the legacy non-identity modes. Identity modes verify below.
 function extractUserId(req) {
@@ -41,6 +49,23 @@ app.get(['/', '/dashboard'], (req, res) => {
 });
 
 app.post('/internal/backchannel-logout', backchannelLogout);
+app.post('/internal/clear-revocations', (req, res) => {
+  if (revoked && typeof revoked.clear === 'function') {
+    revoked.clear();
+  }
+  return res.json({ ok: true, cleared: true });
+});
+app.post('/internal/flush-telemetry', async (req, res) => {
+  try {
+    while (pendingTelemetryWrites.size > 0) {
+      await Promise.allSettled([...pendingTelemetryWrites]);
+    }
+    return res.json({ ok: true, pending: 0 });
+  } catch (error) {
+    console.error('[db] telemetry flush failed:', error.message);
+    return res.status(500).json({ error: 'telemetry flush failed' });
+  }
+});
 
 app.get('/api/dashboard/data', async (req, res) => {
   let logs = [];
@@ -88,13 +113,19 @@ function telemetryInterceptor(req, res, next) {
     identity_validation_ms: req.identityValidationMs || null,
   };
   req.telemetryEntry = entry;
-  req.updateTelemetryDecision = updateTelemetryDecision;
-  req.telemetryIdPromise = insertTelemetry(entry).catch((err) => {
+  req.updateTelemetryDecision = (...args) => trackTelemetryWrite(updateTelemetryDecision(...args));
+  req.telemetryIdPromise = trackTelemetryWrite(insertTelemetry(entry)).catch((err) => {
     console.error('[db] telemetry insert failed:', err.message);
     return null;
   });
   req.sensitivityLabel = classify(req.originalUrl);
   next();
+}
+
+function trackTelemetryWrite(promise) {
+  pendingTelemetryWrites.add(promise);
+  promise.finally(() => pendingTelemetryWrites.delete(promise)).catch(() => {});
+  return promise;
 }
 
 app.use(keycloakTokenMiddleware);

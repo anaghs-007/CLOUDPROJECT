@@ -1,0 +1,49 @@
+{
+  "name": "@maplibre/vt-pbf",
+  "version": "4.3.3",
+  "description": "Serialize mapbox vector tiles to binary protobufs in javascript.",
+  "main": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint index.ts lib/**/*.ts test/**/*.ts",
+    "test-unit": "vitest run --config vitest.config.unit.ts",
+    "test-unit-ci": "vitest run --config vitest.config.unit.ts --coverage",
+    "build": "rolldown -c rolldown.config.ts && tsc",
+    "docs": "typedoc --entryPoints index.ts --out docs/API"
+  },
+  "author": "Anand Thakker <vestibule@anandthakker.net> (http://anandthakker.net/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maplibre/vt-pbf"
+  },
+  "type": "module",
+  "dependencies": {
+    "@mapbox/point-geometry": "^1.1.0",
+    "@types/geojson": "^7946.0.16",
+    "pbf": "^5.1.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@mapbox/geojson-fixtures": "^2.0.0",
+    "@mapbox/mvt-fixtures": "^4.0.0",
+    "@mapbox/vector-tile": "^3.0.0",
+    "@maplibre/geojson-vt": "^6.3.0",
+    "@maplibre/vtvalidate": "^0.4.2",
+    "@types/geojson-equality": "^0.2.2",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "benchmark": "^2.1.4",
+    "eslint": "^10.13.0",
+    "geojson-equality": "^0.2.1",
+    "rolldown": "^1.2.15",
+    "tslib": "^2.8.1",
+    "typedoc": "^0.28.20",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^5.0.5"
+  }
+}

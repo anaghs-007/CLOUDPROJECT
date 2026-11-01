@@ -220,6 +220,24 @@ class KeycloakEnforcer:
         samples.clear()
         return True
 
+    def reset_identity(self, user_id):
+        """Reset benchmark state without recording a policy restore event."""
+        keycloak_user_id = self._resolve_user_id(user_id)
+        roles = [
+            {"id": self.role_ids[name], "name": name}
+            for name in self.privileged_roles if name in self.role_ids
+        ]
+        if roles:
+            self._request("POST", f"/users/{keycloak_user_id}/role-mappings/realm", json=roles)
+        self._request("POST", f"/users/{keycloak_user_id}/logout")
+        with self._db() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "DELETE FROM policy_state WHERE scope = 'identity' AND entity_id = %s",
+                    (user_id,),
+                )
+        self.restore_samples[user_id].clear()
+
 
 def enforce_identity_quarantine(user_id, risk, scored_at, session_id=None):
     """Convenience entry point used by risk_engine.py."""
@@ -230,13 +248,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Apply a Phase 4 identity action.")
     parser.add_argument("--user", required=True, help="Keycloak username or user id")
     parser.add_argument("--risk", type=float, default=1.0)
-    parser.add_argument("--action", choices=("quarantine", "restore"), default="quarantine")
+    parser.add_argument("--action", choices=("quarantine", "restore", "reset"), default="quarantine")
     parser.add_argument("--session-id", default=None)
     args = parser.parse_args()
     enforcer = KeycloakEnforcer(session_id=args.session_id)
     scored_at = datetime.now(timezone.utc)
     if args.action == "quarantine":
         changed = enforcer.enforce_identity_quarantine(args.user, args.risk, scored_at)
+    elif args.action == "reset":
+        enforcer.reset_identity(args.user)
+        changed = True
     else:
         changed = enforcer.restore_identity(args.user, args.risk, scored_at)
     print(json.dumps({

@@ -11,8 +11,11 @@ from collections import defaultdict
 
 import requests
 from dotenv import load_dotenv
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+_thread_state = threading.local()
 
 SCENARIOS = [
     "default",
@@ -149,7 +152,26 @@ def send(base_url, request_data):
     index, threat, episode, method, path, headers = request_data
     started = time.perf_counter()
     try:
-        resp = requests.request(method, f'{base_url}{path}', headers=headers, timeout=10)
+        session = getattr(_thread_state, 'session', None)
+        if session is None:
+            session = requests.Session()
+            retry = Retry(
+                total=2,
+                connect=2,
+                read=0,
+                backoff_factor=0.1,
+                status_forcelist=(502, 503, 504),
+                allowed_methods=False,
+            )
+            adapter = HTTPAdapter(
+                max_retries=retry,
+                pool_connections=1,
+                pool_maxsize=1,
+            )
+            session.mount('http://', adapter)
+            session.mount('https://', adapter)
+            _thread_state.session = session
+        resp = session.request(method, f'{base_url}{path}', headers=headers, timeout=10)
         elapsed = (time.perf_counter() - started) * 1000
         return index, threat, episode, resp.status_code, elapsed
     except requests.RequestException as exc:
@@ -182,7 +204,9 @@ def main():
             threat = rng.random() < args.threat_ratio
         username = f'sim-user-{idx % 5}'
         token = token_provider.token_for(username) if token_provider else None
-        requests_to_send.append(build_request(idx, rng, session_id, args.scenario, threat, token))
+        request_data = build_request(idx, rng, session_id, args.scenario, threat, token)
+        request_data[-1]['X-Policy-Mode'] = os.getenv('POLICY_MODE', 'adaptive')
+        requests_to_send.append(request_data)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=min(32, max(1, args.requests))) as executor:
         results = list(executor.map(lambda item: send(args.base_url, item), requests_to_send))
@@ -208,18 +232,27 @@ def main():
     print(f'blocked_threats={blocked_threats} MISSED_threats={missed}')
     print(f'avg_latency_ms={avg_latency:.3f}')
     print(f'avg_exposure_per_episode={sum(exposures) / max(1, len(exposures)) / 1000:.3f}s')
+    failed_requests = sum(1 for result in results if result[3] == 599)
+    if failed_requests:
+        examples = [result[-1] for result in results if result[3] == 599][:3]
+        raise RuntimeError(
+            f'{failed_requests} simulated requests failed to connect; examples: {examples}'
+        )
     if token_provider:
         regain_attempts = 0
         regained = 0
         for username in sorted({f'sim-user-{idx % 5}' for idx in range(args.requests)}):
             token = token_provider.token_for(username, force=True)
-            response = requests.get(
-                f'{args.base_url}/api/admin/storage',
-                headers={'Authorization': f'Bearer {token}', 'X-Session-Id': session_id},
-                timeout=10,
-            )
-            regain_attempts += 1
-            regained += int(response.status_code < 400)
+            try:
+                response = requests.get(
+                    f'{args.base_url}/api/admin/storage',
+                    headers={'Authorization': f'Bearer {token}', 'X-Session-Id': session_id},
+                    timeout=10,
+                )
+                regain_attempts += 1
+                regained += int(response.status_code < 400)
+            except requests.RequestException as exc:
+                raise RuntimeError(f'Re-login verification failed for {username}: {exc}') from exc
         print(f'relogin_attempts={regain_attempts} privileged_access_regained={regained}')
 
 

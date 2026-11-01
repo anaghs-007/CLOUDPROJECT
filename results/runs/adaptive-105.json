@@ -1,0 +1,9 @@
+{
+  "session_id": "adaptive-105",
+  "mode": "adaptive",
+  "seed": 105,
+  "requests": 500,
+  "duration_seconds": 1.4701478999922983,
+  "stdout": "session_id=adaptive-105\nscenario=default\ntotal=500 blocked=0\nallowed_normal=381 blocked_normal=0\nblocked_threats=0 MISSED_threats=119\navg_latency_ms=60.363\navg_exposure_per_episode=0.168s\n",
+  "timestamp": "2026-11-01T09:04:24.487858+00:00"
+}

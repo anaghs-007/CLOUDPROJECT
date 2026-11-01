@@ -84,7 +84,7 @@ function firstViolation(req, role, mode = process.env.POLICY_MODE || 'adaptive')
 
 function enforceStaticSCP(req, res, next) {
   const started = process.hrtime.bigint();
-  const mode = process.env.POLICY_MODE || 'adaptive';
+  const mode = req.policyMode || process.env.POLICY_MODE || 'adaptive';
   const role = extractRole(req);
   req.role = role;
   const rule = ['static', 'static_context', 'static_ml'].includes(mode)

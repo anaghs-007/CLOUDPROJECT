@@ -1,0 +1,32 @@
+{
+  "git_commit": "50a8d9a00d0cbdc89891b46d5413f7bb635507cb",
+  "seeds": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110
+  ],
+  "requests_per_run": 500,
+  "theta": {
+    "tau1": 0.4,
+    "tau2": 0.7,
+    "tau_w": 0.4,
+    "delta": 0.05,
+    "N": 2,
+    "alpha": 1,
+    "beta": 0.5,
+    "gamma": 0.2
+  },
+  "keycloak_version": "26.3.2",
+  "access_token_lifespan": 60,
+  "revocation_check_mode": "backchannel",
+  "hardware_os": "Windows 11 / AMD64 / Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+  "timestamp": "2026-11-01T09:02:58.056116+00:00",
+  "mock": false
+}

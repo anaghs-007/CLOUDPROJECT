@@ -126,7 +126,7 @@ function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
 }
 
 function adaptivePolicyEngine(req, res, next) {
-  const mode = process.env.POLICY_MODE || 'adaptive';
+  const mode = req.policyMode || process.env.POLICY_MODE || 'adaptive';
 
   // In pure 'identity' mode, Keycloak is the sole enforcement mechanism.
   // The Phase 3 risk-cache predicates must NOT run so results are attributable

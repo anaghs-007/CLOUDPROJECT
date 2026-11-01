@@ -76,7 +76,7 @@ async function introspect(token) {
 }
 
 async function keycloakTokenMiddleware(req, res, next) {
-  const mode = process.env.POLICY_MODE || 'adaptive';
+  const mode = req.policyMode || process.env.POLICY_MODE || 'adaptive';
   if (!['identity', 'adaptive_identity'].includes(mode)) return next();
   const authorization = req.headers.authorization;
   if (!authorization || !authorization.startsWith('Bearer ')) {

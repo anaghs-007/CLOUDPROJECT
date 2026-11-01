@@ -313,7 +313,11 @@ docker compose down
 docker compose up -d
 do {
   Start-Sleep -Seconds 2
-  $ready = try { (Invoke-WebRequest http://localhost:8080/health/ready -UseBasicParsing).StatusCode -eq 200 } catch { $false }
+  $ready = try {
+    (Invoke-WebRequest `
+      http://localhost:8080/realms/ac-scp-realm/.well-known/openid-configuration `
+      -UseBasicParsing).StatusCode -eq 200
+  } catch { $false }
 } until ($ready)
 
 psql -U postgres -c "CREATE DATABASE acscp;" 2>$null
@@ -401,3 +405,76 @@ Troubleshooting:
 - Missing identity rows: run `identity_enforcement.sql` after the Phase 3
   schemas and confirm the Python process is using the same `.env` and
   PostgreSQL database as the API.
+
+## Phase 5 — Empirical evidence and dashboard
+
+The Phase 5 pipeline never substitutes paper values for measured output.
+`results/mock_benchmark.json` is explicitly synthetic and the UI displays a
+persistent `MOCK DATA - NOT RESULTS` banner whenever `meta.mock` is true.
+Mock data is opt-in. By default the dashboard API requires
+`results/benchmark.json` and reports a clear error if real benchmark output is
+missing. Set `DASHBOARD_USE_MOCK=true` only for UI development.
+
+Install the analysis dependencies and generate reproducible mock data for UI
+development:
+
+```powershell
+python -m pip install -r requirements.txt
+python run_benchmark_matrix.py --dry-run
+```
+
+Run the held-out matrix against a running API, PostgreSQL, and Keycloak stack:
+
+```powershell
+$env:BENCHMARK_MODE_HEADER="true"
+$env:POLICY_MODE="adaptive"
+npm start
+```
+
+In another terminal:
+
+```powershell
+python run_benchmark_matrix.py `
+  --modes none static adaptive identity adaptive_identity `
+  --seeds 101 102 103 104 105 106 107 108 109 110 `
+  --requests 500
+```
+
+Every run resets request-level database/policy state while retaining completed
+aggregate rows, clears the local revocation cache, restores Keycloak simulation
+identities, writes `results/runs/<mode>-<seed>.json`, and records
+`results/benchmark.meta.json`. The runner excludes training and
+validation seeds `11` and `42`. Aggregation writes `results/benchmark.json`;
+analysis writes `results/stats.json`.
+
+Create the read-only dashboard database role once:
+
+```powershell
+psql -U postgres -d acscp -f dashboard_schema.sql
+$env:PGUSER_RO="dashboard_ro"
+$env:PGPASSWORD_RO="replace-dashboard-ro-password"
+```
+
+Start the separate read-only API and React UI:
+
+```powershell
+npm run dashboard-api
+npm --prefix dashboard-ui install
+npm run dashboard-ui
+```
+
+Open `http://localhost:5173`. The dashboard API is on port 4000 and exposes
+`/dash/benchmark`, `/dash/stats`, `/dash/live/risk`,
+`/dash/live/decisions`, `/dash/live/quarantines`, and the two-second
+`/dash/live/stream` SSE endpoint. It does not use the telemetry or policy
+middleware. CORS is limited to the local dashboard origins.
+
+Each figure caption reports mode, units, sample size, and seeds. Exported
+benchmark data contains measured values only; ablation and scalability tabs are
+hidden unless supplied in the manifest. Paper reference values should be added
+only as a separately labelled, toggleable comparison layer.
+
+Limitations: runs use a local simulated environment, local network and
+database latency, direct-grant tokens for testing only, and a small synthetic
+tenant population. These measurements do not establish production latency or
+generalization.

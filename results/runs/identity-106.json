@@ -1,0 +1,9 @@
+{
+  "session_id": "identity-106",
+  "mode": "identity",
+  "seed": 106,
+  "requests": 500,
+  "duration_seconds": 1.3993047999683768,
+  "stdout": "session_id=identity-106\nscenario=default\ntotal=500 blocked=500\nallowed_normal=0 blocked_normal=404\nblocked_threats=96 MISSED_threats=0\navg_latency_ms=34.041\navg_exposure_per_episode=0.000s\nrelogin_attempts=5 privileged_access_regained=5\n",
+  "timestamp": "2026-11-01T09:05:14.157924+00:00"
+}

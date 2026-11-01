@@ -1,0 +1,2998 @@
+{
+  "meta": {
+    "git_commit": "50a8d9a00d0cbdc89891b46d5413f7bb635507cb",
+    "seeds": [
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120
+    ],
+    "requests_per_run": 500,
+    "theta": {
+      "tau1": 0.4,
+      "tau2": 0.7,
+      "tau_w": 0.4,
+      "delta": 0.05,
+      "N": 2,
+      "alpha": 1,
+      "beta": 0.5,
+      "gamma": 0.2
+    },
+    "keycloak_version": "26.3.2",
+    "access_token_lifespan": 60,
+    "revocation_check_mode": "backchannel",
+    "hardware_os": "Windows 11 / x86_64 / Intel Core i7",
+    "timestamp": "2026-11-01T07:53:39.492Z",
+    "mock": true
+  },
+  "modes": {
+    "none": {
+      "runs": [
+        {
+          "seed": 101,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.273
+        },
+        {
+          "seed": 102,
+          "total_requests": 500,
+          "violations_missed": 102,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.138
+        },
+        {
+          "seed": 103,
+          "total_requests": 500,
+          "violations_missed": 97,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.138
+        },
+        {
+          "seed": 104,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.218
+        },
+        {
+          "seed": 105,
+          "total_requests": 500,
+          "violations_missed": 100,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.263
+        },
+        {
+          "seed": 106,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.228
+        },
+        {
+          "seed": 107,
+          "total_requests": 500,
+          "violations_missed": 100,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.182
+        },
+        {
+          "seed": 108,
+          "total_requests": 500,
+          "violations_missed": 101,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.148
+        },
+        {
+          "seed": 109,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.188
+        },
+        {
+          "seed": 110,
+          "total_requests": 500,
+          "violations_missed": 100,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.196
+        },
+        {
+          "seed": 111,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.249
+        },
+        {
+          "seed": 112,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.162
+        },
+        {
+          "seed": 113,
+          "total_requests": 500,
+          "violations_missed": 100,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.199
+        },
+        {
+          "seed": 114,
+          "total_requests": 500,
+          "violations_missed": 100,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.198
+        },
+        {
+          "seed": 115,
+          "total_requests": 500,
+          "violations_missed": 98,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.196
+        },
+        {
+          "seed": 116,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.151
+        },
+        {
+          "seed": 117,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.163
+        },
+        {
+          "seed": 118,
+          "total_requests": 500,
+          "violations_missed": 99,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.256
+        },
+        {
+          "seed": 119,
+          "total_requests": 500,
+          "violations_missed": 101,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.164
+        },
+        {
+          "seed": 120,
+          "total_requests": 500,
+          "violations_missed": 101,
+          "violations_blocked": 0,
+          "false_denies": 0,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.259
+        }
+      ],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "ep-none-101-1",
+          "value": 1242.8
+        },
+        {
+          "seed": 101,
+          "episode_id": "ep-none-101-2",
+          "value": 1285.5
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-none-102-1",
+          "value": 1326
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-none-102-2",
+          "value": 1456.8
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-none-103-1",
+          "value": 1200.7
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-none-103-2",
+          "value": 1270.3
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-none-104-1",
+          "value": 1176.4
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-none-104-2",
+          "value": 1170.6
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-none-105-1",
+          "value": 1161
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-none-105-2",
+          "value": 1276.3
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-none-106-1",
+          "value": 1158
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-none-106-2",
+          "value": 1274.1
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-none-107-1",
+          "value": 1556.2
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-none-107-2",
+          "value": 1341.2
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-none-108-1",
+          "value": 1394
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-none-108-2",
+          "value": 1304
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-none-109-1",
+          "value": 1175.8
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-none-109-2",
+          "value": 1202.4
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-none-110-1",
+          "value": 1138.6
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-none-110-2",
+          "value": 1255.1
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-none-111-1",
+          "value": 1378.9
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-none-111-2",
+          "value": 1383
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-none-112-1",
+          "value": 1250.5
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-none-112-2",
+          "value": 1190.8
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-none-113-1",
+          "value": 1167
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-none-113-2",
+          "value": 1209.6
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-none-114-1",
+          "value": 1268.4
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-none-114-2",
+          "value": 1334.3
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-none-115-1",
+          "value": 1246.2
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-none-115-2",
+          "value": 1196.9
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-none-116-1",
+          "value": 1256.7
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-none-116-2",
+          "value": 1295.1
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-none-117-1",
+          "value": 1371.4
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-none-117-2",
+          "value": 1143.2
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-none-118-1",
+          "value": 1356.9
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-none-118-2",
+          "value": 1291.4
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-none-119-1",
+          "value": 1247.9
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-none-119-2",
+          "value": 1279.1
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-none-120-1",
+          "value": 1187.2
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-none-120-2",
+          "value": 1233.7
+        }
+      ],
+      "update_latency_ms": [],
+      "enforcement_call_ms": [],
+      "time_to_effective_ms": []
+    },
+    "static": {
+      "runs": [
+        {
+          "seed": 101,
+          "total_requests": 500,
+          "violations_missed": 73,
+          "violations_blocked": 31,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.499
+        },
+        {
+          "seed": 102,
+          "total_requests": 500,
+          "violations_missed": 71,
+          "violations_blocked": 25,
+          "false_denies": 11,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.578
+        },
+        {
+          "seed": 103,
+          "total_requests": 500,
+          "violations_missed": 73,
+          "violations_blocked": 21,
+          "false_denies": 11,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.658
+        },
+        {
+          "seed": 104,
+          "total_requests": 500,
+          "violations_missed": 71,
+          "violations_blocked": 23,
+          "false_denies": 12,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.343
+        },
+        {
+          "seed": 105,
+          "total_requests": 500,
+          "violations_missed": 67,
+          "violations_blocked": 19,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.395
+        },
+        {
+          "seed": 106,
+          "total_requests": 500,
+          "violations_missed": 73,
+          "violations_blocked": 24,
+          "false_denies": 10,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.683
+        },
+        {
+          "seed": 107,
+          "total_requests": 500,
+          "violations_missed": 68,
+          "violations_blocked": 23,
+          "false_denies": 10,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.321
+        },
+        {
+          "seed": 108,
+          "total_requests": 500,
+          "violations_missed": 69,
+          "violations_blocked": 20,
+          "false_denies": 11,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.367
+        },
+        {
+          "seed": 109,
+          "total_requests": 500,
+          "violations_missed": 68,
+          "violations_blocked": 28,
+          "false_denies": 8,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.44
+        },
+        {
+          "seed": 110,
+          "total_requests": 500,
+          "violations_missed": 75,
+          "violations_blocked": 24,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.336
+        },
+        {
+          "seed": 111,
+          "total_requests": 500,
+          "violations_missed": 68,
+          "violations_blocked": 38,
+          "false_denies": 8,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.303
+        },
+        {
+          "seed": 112,
+          "total_requests": 500,
+          "violations_missed": 82,
+          "violations_blocked": 29,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.478
+        },
+        {
+          "seed": 113,
+          "total_requests": 500,
+          "violations_missed": 64,
+          "violations_blocked": 30,
+          "false_denies": 11,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.422
+        },
+        {
+          "seed": 114,
+          "total_requests": 500,
+          "violations_missed": 80,
+          "violations_blocked": 25,
+          "false_denies": 10,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.557
+        },
+        {
+          "seed": 115,
+          "total_requests": 500,
+          "violations_missed": 85,
+          "violations_blocked": 32,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.422
+        },
+        {
+          "seed": 116,
+          "total_requests": 500,
+          "violations_missed": 69,
+          "violations_blocked": 24,
+          "false_denies": 15,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.422
+        },
+        {
+          "seed": 117,
+          "total_requests": 500,
+          "violations_missed": 72,
+          "violations_blocked": 18,
+          "false_denies": 12,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.437
+        },
+        {
+          "seed": 118,
+          "total_requests": 500,
+          "violations_missed": 75,
+          "violations_blocked": 25,
+          "false_denies": 10,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.37
+        },
+        {
+          "seed": 119,
+          "total_requests": 500,
+          "violations_missed": 75,
+          "violations_blocked": 24,
+          "false_denies": 9,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.449
+        },
+        {
+          "seed": 120,
+          "total_requests": 500,
+          "violations_missed": 83,
+          "violations_blocked": 24,
+          "false_denies": 5,
+          "policy_changes": 0,
+          "validation_overhead_ms": 0.391
+        }
+      ],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "ep-static-101-1",
+          "value": 1028.4
+        },
+        {
+          "seed": 101,
+          "episode_id": "ep-static-101-2",
+          "value": 1168.8
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-static-102-1",
+          "value": 1151.4
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-static-102-2",
+          "value": 1129.2
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-static-103-1",
+          "value": 1130.9
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-static-103-2",
+          "value": 1062
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-static-104-1",
+          "value": 1091.5
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-static-104-2",
+          "value": 1164.1
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-static-105-1",
+          "value": 1038.7
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-static-105-2",
+          "value": 1066.4
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-static-106-1",
+          "value": 1042.6
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-static-106-2",
+          "value": 1148.4
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-static-107-1",
+          "value": 1027.4
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-static-107-2",
+          "value": 1190.5
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-static-108-1",
+          "value": 1169.9
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-static-108-2",
+          "value": 1121.8
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-static-109-1",
+          "value": 1080.1
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-static-109-2",
+          "value": 1082.8
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-static-110-1",
+          "value": 1135.3
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-static-110-2",
+          "value": 1093.8
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-static-111-1",
+          "value": 1114.7
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-static-111-2",
+          "value": 1079.9
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-static-112-1",
+          "value": 1093.2
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-static-112-2",
+          "value": 1187.3
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-static-113-1",
+          "value": 1048.7
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-static-113-2",
+          "value": 1184.4
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-static-114-1",
+          "value": 1111
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-static-114-2",
+          "value": 1248.8
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-static-115-1",
+          "value": 1106.4
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-static-115-2",
+          "value": 1237.4
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-static-116-1",
+          "value": 1204.5
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-static-116-2",
+          "value": 1182.7
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-static-117-1",
+          "value": 1050.3
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-static-117-2",
+          "value": 1094.4
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-static-118-1",
+          "value": 1082.6
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-static-118-2",
+          "value": 1172.1
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-static-119-1",
+          "value": 1081.6
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-static-119-2",
+          "value": 1079.3
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-static-120-1",
+          "value": 1096.5
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-static-120-2",
+          "value": 1097.5
+        }
+      ],
+      "update_latency_ms": [],
+      "enforcement_call_ms": [],
+      "time_to_effective_ms": []
+    },
+    "adaptive": {
+      "runs": [
+        {
+          "seed": 101,
+          "total_requests": 500,
+          "violations_missed": 28,
+          "violations_blocked": 70,
+          "false_denies": 4,
+          "policy_changes": 17,
+          "validation_overhead_ms": 1.27
+        },
+        {
+          "seed": 102,
+          "total_requests": 500,
+          "violations_missed": 33,
+          "violations_blocked": 68,
+          "false_denies": 2,
+          "policy_changes": 17,
+          "validation_overhead_ms": 1.817
+        },
+        {
+          "seed": 103,
+          "total_requests": 500,
+          "violations_missed": 31,
+          "violations_blocked": 69,
+          "false_denies": 4,
+          "policy_changes": 15,
+          "validation_overhead_ms": 1.564
+        },
+        {
+          "seed": 104,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 61,
+          "false_denies": 4,
+          "policy_changes": 16,
+          "validation_overhead_ms": 1.589
+        },
+        {
+          "seed": 105,
+          "total_requests": 500,
+          "violations_missed": 30,
+          "violations_blocked": 73,
+          "false_denies": 4,
+          "policy_changes": 17,
+          "validation_overhead_ms": 1.993
+        },
+        {
+          "seed": 106,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 69,
+          "false_denies": 3,
+          "policy_changes": 15,
+          "validation_overhead_ms": 1.696
+        },
+        {
+          "seed": 107,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 72,
+          "false_denies": 4,
+          "policy_changes": 18,
+          "validation_overhead_ms": 1.911
+        },
+        {
+          "seed": 108,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 73,
+          "false_denies": 2,
+          "policy_changes": 20,
+          "validation_overhead_ms": 2.247
+        },
+        {
+          "seed": 109,
+          "total_requests": 500,
+          "violations_missed": 32,
+          "violations_blocked": 65,
+          "false_denies": 5,
+          "policy_changes": 17,
+          "validation_overhead_ms": 0.909
+        },
+        {
+          "seed": 110,
+          "total_requests": 500,
+          "violations_missed": 35,
+          "violations_blocked": 65,
+          "false_denies": 3,
+          "policy_changes": 19,
+          "validation_overhead_ms": 1.108
+        },
+        {
+          "seed": 111,
+          "total_requests": 500,
+          "violations_missed": 32,
+          "violations_blocked": 72,
+          "false_denies": 4,
+          "policy_changes": 19,
+          "validation_overhead_ms": 1.98
+        },
+        {
+          "seed": 112,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 67,
+          "false_denies": 3,
+          "policy_changes": 21,
+          "validation_overhead_ms": 1.945
+        },
+        {
+          "seed": 113,
+          "total_requests": 500,
+          "violations_missed": 30,
+          "violations_blocked": 75,
+          "false_denies": 5,
+          "policy_changes": 20,
+          "validation_overhead_ms": 1.301
+        },
+        {
+          "seed": 114,
+          "total_requests": 500,
+          "violations_missed": 41,
+          "violations_blocked": 72,
+          "false_denies": 4,
+          "policy_changes": 19,
+          "validation_overhead_ms": 2.223
+        },
+        {
+          "seed": 115,
+          "total_requests": 500,
+          "violations_missed": 31,
+          "violations_blocked": 69,
+          "false_denies": 2,
+          "policy_changes": 17,
+          "validation_overhead_ms": 1.237
+        },
+        {
+          "seed": 116,
+          "total_requests": 500,
+          "violations_missed": 29,
+          "violations_blocked": 73,
+          "false_denies": 2,
+          "policy_changes": 23,
+          "validation_overhead_ms": 1.681
+        },
+        {
+          "seed": 117,
+          "total_requests": 500,
+          "violations_missed": 28,
+          "violations_blocked": 64,
+          "false_denies": 3,
+          "policy_changes": 18,
+          "validation_overhead_ms": 1.945
+        },
+        {
+          "seed": 118,
+          "total_requests": 500,
+          "violations_missed": 32,
+          "violations_blocked": 70,
+          "false_denies": 1,
+          "policy_changes": 19,
+          "validation_overhead_ms": 2.249
+        },
+        {
+          "seed": 119,
+          "total_requests": 500,
+          "violations_missed": 30,
+          "violations_blocked": 70,
+          "false_denies": 4,
+          "policy_changes": 21,
+          "validation_overhead_ms": 1.697
+        },
+        {
+          "seed": 120,
+          "total_requests": 500,
+          "violations_missed": 28,
+          "violations_blocked": 77,
+          "false_denies": 2,
+          "policy_changes": 20,
+          "validation_overhead_ms": 1.995
+        }
+      ],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "ep-adaptive-101-1",
+          "value": 365
+        },
+        {
+          "seed": 101,
+          "episode_id": "ep-adaptive-101-2",
+          "value": 384.6
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-adaptive-102-1",
+          "value": 404.6
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-adaptive-102-2",
+          "value": 358.7
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-adaptive-103-1",
+          "value": 380.1
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-adaptive-103-2",
+          "value": 363.5
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-adaptive-104-1",
+          "value": 346.8
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-adaptive-104-2",
+          "value": 356.6
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-adaptive-105-1",
+          "value": 428.1
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-adaptive-105-2",
+          "value": 349.8
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-adaptive-106-1",
+          "value": 407.2
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-adaptive-106-2",
+          "value": 391.8
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-adaptive-107-1",
+          "value": 354
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-adaptive-107-2",
+          "value": 383.6
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-adaptive-108-1",
+          "value": 340.7
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-adaptive-108-2",
+          "value": 399.8
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-adaptive-109-1",
+          "value": 397.3
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-adaptive-109-2",
+          "value": 363.2
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-adaptive-110-1",
+          "value": 395.6
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-adaptive-110-2",
+          "value": 432.1
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-adaptive-111-1",
+          "value": 340.4
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-adaptive-111-2",
+          "value": 422.6
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-adaptive-112-1",
+          "value": 404.1
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-adaptive-112-2",
+          "value": 326
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-adaptive-113-1",
+          "value": 396.8
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-adaptive-113-2",
+          "value": 454.5
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-adaptive-114-1",
+          "value": 347.2
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-adaptive-114-2",
+          "value": 391.5
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-adaptive-115-1",
+          "value": 379
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-adaptive-115-2",
+          "value": 424.8
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-adaptive-116-1",
+          "value": 381.9
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-adaptive-116-2",
+          "value": 408.2
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-adaptive-117-1",
+          "value": 377.9
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-adaptive-117-2",
+          "value": 388.5
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-adaptive-118-1",
+          "value": 423.8
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-adaptive-118-2",
+          "value": 420.3
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-adaptive-119-1",
+          "value": 398.9
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-adaptive-119-2",
+          "value": 373.8
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-adaptive-120-1",
+          "value": 451.1
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-adaptive-120-2",
+          "value": 395.9
+        }
+      ],
+      "update_latency_ms": [
+        219.39,
+        301.98,
+        251.29,
+        184.08,
+        262.15,
+        148.53,
+        228.29,
+        193.23,
+        266.42,
+        161.64,
+        214.69,
+        245.45,
+        138.16,
+        196.44,
+        217.21,
+        201.88,
+        245.54,
+        328.11,
+        267.74,
+        258.57,
+        228.34,
+        165.95,
+        277.76,
+        230.15,
+        191.02,
+        386.46,
+        205.62,
+        294.01,
+        320.48,
+        183.48,
+        154.65,
+        180.61,
+        262.89,
+        158.75,
+        297.07,
+        252.82,
+        199.71,
+        275.36,
+        133.94,
+        285.78,
+        217.4,
+        181.83,
+        203.57,
+        283.6,
+        187.73,
+        254.48,
+        274.75,
+        205.81,
+        173.05,
+        148.92,
+        188.7,
+        309.24,
+        217.99,
+        298.9,
+        243.82,
+        306.26,
+        306.91,
+        275.46,
+        228.43,
+        273.15,
+        239.12,
+        264.24,
+        240.62,
+        266.06,
+        209.19,
+        315,
+        281.69,
+        557.77,
+        210.24,
+        182.22,
+        137.15,
+        291.74,
+        180.92,
+        169.38,
+        234.29,
+        226.17,
+        276.27,
+        316.39,
+        199.36,
+        184.53,
+        295.92,
+        270.78,
+        264.95,
+        302.45,
+        336.16,
+        352.9,
+        314.17,
+        358.5,
+        236.48,
+        275.43,
+        267.58,
+        302.57,
+        315.81,
+        270.99,
+        254.2,
+        183.32,
+        103.15,
+        231.21,
+        298.66,
+        246.06
+      ],
+      "enforcement_call_ms": [],
+      "time_to_effective_ms": [
+        227.6,
+        224.54,
+        320.15,
+        181.72,
+        235.57,
+        368.83,
+        236.93,
+        291.49,
+        237.45,
+        301.09,
+        301.32,
+        274.4,
+        205.59,
+        335.06,
+        243.03,
+        255.5,
+        276.17,
+        241.09,
+        306.99,
+        100,
+        259.43,
+        267.32,
+        318.94,
+        139.75,
+        316.28,
+        291.74,
+        195.4,
+        324.05,
+        154.58,
+        273.09,
+        318.49,
+        277.7,
+        227.58,
+        244.38,
+        266.37,
+        255.91,
+        259.37,
+        314.35,
+        184.67,
+        306.21,
+        276.98,
+        178.67,
+        286.08,
+        235.09,
+        197.68,
+        263.16,
+        280.08,
+        270.18,
+        233.19,
+        304.32,
+        170.31,
+        284.66,
+        197.99,
+        233.76,
+        295.77,
+        301.96,
+        132.39,
+        283.93,
+        242.37,
+        346.27,
+        248.32,
+        250.02,
+        251.15,
+        343.28,
+        142.83,
+        294.55,
+        260.06,
+        211.07,
+        248.92,
+        316.81,
+        200.6,
+        223.53,
+        251.72,
+        195.25,
+        292.47,
+        260.07,
+        155.94,
+        239.19,
+        207.33,
+        292,
+        191.6,
+        351.21,
+        246.08,
+        249.87,
+        269.99,
+        209.67,
+        260.74,
+        258.65,
+        282.64,
+        291.51,
+        280.71,
+        331.54,
+        302.39,
+        216.48,
+        233.15,
+        273.53,
+        231.55,
+        354.27,
+        299.68,
+        320.76
+      ]
+    },
+    "identity": {
+      "runs": [
+        {
+          "seed": 101,
+          "total_requests": 500,
+          "violations_missed": 48,
+          "violations_blocked": 47,
+          "false_denies": 3,
+          "policy_changes": 13,
+          "validation_overhead_ms": 2.585
+        },
+        {
+          "seed": 102,
+          "total_requests": 500,
+          "violations_missed": 58,
+          "violations_blocked": 47,
+          "false_denies": 1,
+          "policy_changes": 14,
+          "validation_overhead_ms": 2.898
+        },
+        {
+          "seed": 103,
+          "total_requests": 500,
+          "violations_missed": 56,
+          "violations_blocked": 44,
+          "false_denies": 2,
+          "policy_changes": 14,
+          "validation_overhead_ms": 2.396
+        },
+        {
+          "seed": 104,
+          "total_requests": 500,
+          "violations_missed": 50,
+          "violations_blocked": 51,
+          "false_denies": 4,
+          "policy_changes": 12,
+          "validation_overhead_ms": 2.783
+        },
+        {
+          "seed": 105,
+          "total_requests": 500,
+          "violations_missed": 47,
+          "violations_blocked": 41,
+          "false_denies": 1,
+          "policy_changes": 10,
+          "validation_overhead_ms": 2.522
+        },
+        {
+          "seed": 106,
+          "total_requests": 500,
+          "violations_missed": 53,
+          "violations_blocked": 55,
+          "false_denies": 3,
+          "policy_changes": 13,
+          "validation_overhead_ms": 2.643
+        },
+        {
+          "seed": 107,
+          "total_requests": 500,
+          "violations_missed": 46,
+          "violations_blocked": 55,
+          "false_denies": 2,
+          "policy_changes": 12,
+          "validation_overhead_ms": 2.184
+        },
+        {
+          "seed": 108,
+          "total_requests": 500,
+          "violations_missed": 51,
+          "violations_blocked": 48,
+          "false_denies": 2,
+          "policy_changes": 11,
+          "validation_overhead_ms": 3.286
+        },
+        {
+          "seed": 109,
+          "total_requests": 500,
+          "violations_missed": 52,
+          "violations_blocked": 49,
+          "false_denies": 3,
+          "policy_changes": 12,
+          "validation_overhead_ms": 1.515
+        },
+        {
+          "seed": 110,
+          "total_requests": 500,
+          "violations_missed": 46,
+          "violations_blocked": 48,
+          "false_denies": 1,
+          "policy_changes": 13,
+          "validation_overhead_ms": 3.42
+        },
+        {
+          "seed": 111,
+          "total_requests": 500,
+          "violations_missed": 60,
+          "violations_blocked": 44,
+          "false_denies": 3,
+          "policy_changes": 11,
+          "validation_overhead_ms": 2.742
+        },
+        {
+          "seed": 112,
+          "total_requests": 500,
+          "violations_missed": 50,
+          "violations_blocked": 48,
+          "false_denies": 2,
+          "policy_changes": 11,
+          "validation_overhead_ms": 3.059
+        },
+        {
+          "seed": 113,
+          "total_requests": 500,
+          "violations_missed": 51,
+          "violations_blocked": 51,
+          "false_denies": 1,
+          "policy_changes": 13,
+          "validation_overhead_ms": 2.417
+        },
+        {
+          "seed": 114,
+          "total_requests": 500,
+          "violations_missed": 47,
+          "violations_blocked": 52,
+          "false_denies": 3,
+          "policy_changes": 12,
+          "validation_overhead_ms": 2.469
+        },
+        {
+          "seed": 115,
+          "total_requests": 500,
+          "violations_missed": 50,
+          "violations_blocked": 45,
+          "false_denies": 2,
+          "policy_changes": 14,
+          "validation_overhead_ms": 2.983
+        },
+        {
+          "seed": 116,
+          "total_requests": 500,
+          "violations_missed": 53,
+          "violations_blocked": 43,
+          "false_denies": 2,
+          "policy_changes": 13,
+          "validation_overhead_ms": 2.206
+        },
+        {
+          "seed": 117,
+          "total_requests": 500,
+          "violations_missed": 46,
+          "violations_blocked": 60,
+          "false_denies": 2,
+          "policy_changes": 12,
+          "validation_overhead_ms": 2.894
+        },
+        {
+          "seed": 118,
+          "total_requests": 500,
+          "violations_missed": 57,
+          "violations_blocked": 52,
+          "false_denies": 3,
+          "policy_changes": 12,
+          "validation_overhead_ms": 2.57
+        },
+        {
+          "seed": 119,
+          "total_requests": 500,
+          "violations_missed": 56,
+          "violations_blocked": 53,
+          "false_denies": 1,
+          "policy_changes": 12,
+          "validation_overhead_ms": 1.901
+        },
+        {
+          "seed": 120,
+          "total_requests": 500,
+          "violations_missed": 52,
+          "violations_blocked": 50,
+          "false_denies": 1,
+          "policy_changes": 13,
+          "validation_overhead_ms": 2.031
+        }
+      ],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "ep-identity-101-1",
+          "value": 503.3
+        },
+        {
+          "seed": 101,
+          "episode_id": "ep-identity-101-2",
+          "value": 513.6
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-identity-102-1",
+          "value": 421.5
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-identity-102-2",
+          "value": 534.1
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-identity-103-1",
+          "value": 461.4
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-identity-103-2",
+          "value": 483.5
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-identity-104-1",
+          "value": 489.3
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-identity-104-2",
+          "value": 531.6
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-identity-105-1",
+          "value": 529.2
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-identity-105-2",
+          "value": 581.2
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-identity-106-1",
+          "value": 513.9
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-identity-106-2",
+          "value": 500.9
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-identity-107-1",
+          "value": 578.9
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-identity-107-2",
+          "value": 569.1
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-identity-108-1",
+          "value": 571.9
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-identity-108-2",
+          "value": 516.8
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-identity-109-1",
+          "value": 442.3
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-identity-109-2",
+          "value": 542.7
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-identity-110-1",
+          "value": 434.3
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-identity-110-2",
+          "value": 585.2
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-identity-111-1",
+          "value": 463.3
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-identity-111-2",
+          "value": 551
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-identity-112-1",
+          "value": 514.6
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-identity-112-2",
+          "value": 484.1
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-identity-113-1",
+          "value": 475.3
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-identity-113-2",
+          "value": 509.8
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-identity-114-1",
+          "value": 496.9
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-identity-114-2",
+          "value": 599.4
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-identity-115-1",
+          "value": 518.7
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-identity-115-2",
+          "value": 575.5
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-identity-116-1",
+          "value": 601.7
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-identity-116-2",
+          "value": 446.6
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-identity-117-1",
+          "value": 505.8
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-identity-117-2",
+          "value": 559.4
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-identity-118-1",
+          "value": 535.4
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-identity-118-2",
+          "value": 544.3
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-identity-119-1",
+          "value": 545.2
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-identity-119-2",
+          "value": 503.5
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-identity-120-1",
+          "value": 482
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-identity-120-2",
+          "value": 494.8
+        }
+      ],
+      "update_latency_ms": [],
+      "enforcement_call_ms": [
+        130.36,
+        137.02,
+        157.62,
+        188.83,
+        178.33,
+        131.85,
+        162.15,
+        138.5,
+        118.9,
+        139.54,
+        144.03,
+        134.56,
+        167.02,
+        64,
+        148.17,
+        159.19,
+        117.86,
+        150.68,
+        152.93,
+        155.45,
+        94.39,
+        152.54,
+        112.45,
+        154.04,
+        164.66,
+        143.66,
+        142.44,
+        172.19,
+        149.63,
+        119.09,
+        153.98,
+        155.36,
+        140.11,
+        119.9,
+        129.25,
+        154.08,
+        78.28,
+        115.32,
+        145.44,
+        132.28,
+        128.85,
+        179.08,
+        130.97,
+        128.34,
+        102.21,
+        183.64,
+        128.41,
+        155.43,
+        156.94,
+        128.4,
+        148.54,
+        99.57,
+        153.71,
+        178.91,
+        93.68,
+        143.88,
+        139.97,
+        169.62,
+        141.76,
+        165.55,
+        150.58,
+        99.37,
+        150.38,
+        156.76,
+        200.39,
+        141.72,
+        77.49,
+        76.79,
+        152.12,
+        160.74,
+        105.16,
+        125.4,
+        143.62,
+        176.9,
+        184.6,
+        127.56,
+        148.38,
+        137.86,
+        159.28,
+        119.28,
+        147.22,
+        166.24,
+        157.79,
+        140.32,
+        126.44,
+        124.65,
+        166.17,
+        116.08,
+        189.83,
+        129.73,
+        94.01,
+        124.3,
+        131.83,
+        114.24,
+        104.78,
+        128.82,
+        106.64,
+        110.02,
+        141.87,
+        113.25
+      ],
+      "time_to_effective_ms": [
+        403.69,
+        420.3,
+        572.42,
+        430.27,
+        456.4,
+        445.8,
+        493.92,
+        402.44,
+        428.41,
+        359.76,
+        408.57,
+        438.35,
+        484.74,
+        380.14,
+        404.68,
+        352.92,
+        424.63,
+        472.57,
+        452.32,
+        425.72,
+        424.55,
+        422.72,
+        465.61,
+        481.62,
+        390.14,
+        378.45,
+        419.28,
+        413.5,
+        414,
+        410.94,
+        347.27,
+        483.58,
+        396.85,
+        405.3,
+        371.96,
+        417.86,
+        457.09,
+        363.64,
+        471.8,
+        349.63,
+        391.6,
+        361.55,
+        428.88,
+        339.27,
+        372.1,
+        473.98,
+        381.05,
+        342.64,
+        352.26,
+        425.18,
+        400.6,
+        325.46,
+        429.16,
+        468.68,
+        420.92,
+        439.1,
+        471.57,
+        363.33,
+        381.07,
+        435.21,
+        488.94,
+        433.99,
+        476.36,
+        496.15,
+        445.1,
+        372.6,
+        341.02,
+        502.04,
+        537.41,
+        350.48,
+        479.98,
+        431.55,
+        446.5,
+        365.65,
+        505.81,
+        425.55,
+        413.4,
+        288.84,
+        447.41,
+        429.06,
+        393.79,
+        361.56,
+        474.74,
+        405.17,
+        451.21,
+        369.45,
+        363.22,
+        355.4,
+        480.36,
+        492.44,
+        402.04,
+        382.66,
+        336.14,
+        434.63,
+        489.79,
+        391.27,
+        417.85,
+        409.48,
+        438.14,
+        446.58
+      ]
+    },
+    "adaptive_identity": {
+      "runs": [
+        {
+          "seed": 101,
+          "total_requests": 500,
+          "violations_missed": 21,
+          "violations_blocked": 83,
+          "false_denies": 4,
+          "policy_changes": 24,
+          "validation_overhead_ms": 4.209
+        },
+        {
+          "seed": 102,
+          "total_requests": 500,
+          "violations_missed": 18,
+          "violations_blocked": 81,
+          "false_denies": 5,
+          "policy_changes": 23,
+          "validation_overhead_ms": 3.828
+        },
+        {
+          "seed": 103,
+          "total_requests": 500,
+          "violations_missed": 16,
+          "violations_blocked": 82,
+          "false_denies": 4,
+          "policy_changes": 20,
+          "validation_overhead_ms": 3.223
+        },
+        {
+          "seed": 104,
+          "total_requests": 500,
+          "violations_missed": 23,
+          "violations_blocked": 84,
+          "false_denies": 1,
+          "policy_changes": 22,
+          "validation_overhead_ms": 3.025
+        },
+        {
+          "seed": 105,
+          "total_requests": 500,
+          "violations_missed": 20,
+          "violations_blocked": 80,
+          "false_denies": 3,
+          "policy_changes": 22,
+          "validation_overhead_ms": 3.259
+        },
+        {
+          "seed": 106,
+          "total_requests": 500,
+          "violations_missed": 15,
+          "violations_blocked": 80,
+          "false_denies": 3,
+          "policy_changes": 26,
+          "validation_overhead_ms": 2.982
+        },
+        {
+          "seed": 107,
+          "total_requests": 500,
+          "violations_missed": 20,
+          "violations_blocked": 79,
+          "false_denies": 3,
+          "policy_changes": 23,
+          "validation_overhead_ms": 2.966
+        },
+        {
+          "seed": 108,
+          "total_requests": 500,
+          "violations_missed": 20,
+          "violations_blocked": 83,
+          "false_denies": 2,
+          "policy_changes": 25,
+          "validation_overhead_ms": 3.333
+        },
+        {
+          "seed": 109,
+          "total_requests": 500,
+          "violations_missed": 15,
+          "violations_blocked": 84,
+          "false_denies": 4,
+          "policy_changes": 23,
+          "validation_overhead_ms": 3.245
+        },
+        {
+          "seed": 110,
+          "total_requests": 500,
+          "violations_missed": 15,
+          "violations_blocked": 84,
+          "false_denies": 2,
+          "policy_changes": 26,
+          "validation_overhead_ms": 3.731
+        },
+        {
+          "seed": 111,
+          "total_requests": 500,
+          "violations_missed": 15,
+          "violations_blocked": 86,
+          "false_denies": 1,
+          "policy_changes": 24,
+          "validation_overhead_ms": 4.345
+        },
+        {
+          "seed": 112,
+          "total_requests": 500,
+          "violations_missed": 18,
+          "violations_blocked": 80,
+          "false_denies": 1,
+          "policy_changes": 27,
+          "validation_overhead_ms": 3.069
+        },
+        {
+          "seed": 113,
+          "total_requests": 500,
+          "violations_missed": 19,
+          "violations_blocked": 82,
+          "false_denies": 4,
+          "policy_changes": 23,
+          "validation_overhead_ms": 3.124
+        },
+        {
+          "seed": 114,
+          "total_requests": 500,
+          "violations_missed": 11,
+          "violations_blocked": 82,
+          "false_denies": 2,
+          "policy_changes": 27,
+          "validation_overhead_ms": 3.125
+        },
+        {
+          "seed": 115,
+          "total_requests": 500,
+          "violations_missed": 17,
+          "violations_blocked": 84,
+          "false_denies": 2,
+          "policy_changes": 20,
+          "validation_overhead_ms": 2.409
+        },
+        {
+          "seed": 116,
+          "total_requests": 500,
+          "violations_missed": 21,
+          "violations_blocked": 80,
+          "false_denies": 3,
+          "policy_changes": 26,
+          "validation_overhead_ms": 3.413
+        },
+        {
+          "seed": 117,
+          "total_requests": 500,
+          "violations_missed": 18,
+          "violations_blocked": 82,
+          "false_denies": 3,
+          "policy_changes": 23,
+          "validation_overhead_ms": 3.204
+        },
+        {
+          "seed": 118,
+          "total_requests": 500,
+          "violations_missed": 13,
+          "violations_blocked": 83,
+          "false_denies": 3,
+          "policy_changes": 27,
+          "validation_overhead_ms": 3.472
+        },
+        {
+          "seed": 119,
+          "total_requests": 500,
+          "violations_missed": 14,
+          "violations_blocked": 85,
+          "false_denies": 4,
+          "policy_changes": 22,
+          "validation_overhead_ms": 3.174
+        },
+        {
+          "seed": 120,
+          "total_requests": 500,
+          "violations_missed": 17,
+          "violations_blocked": 81,
+          "false_denies": 4,
+          "policy_changes": 26,
+          "validation_overhead_ms": 2.667
+        }
+      ],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "ep-adaptive_identity-101-1",
+          "value": 151.2
+        },
+        {
+          "seed": 101,
+          "episode_id": "ep-adaptive_identity-101-2",
+          "value": 166.4
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-adaptive_identity-102-1",
+          "value": 169.7
+        },
+        {
+          "seed": 102,
+          "episode_id": "ep-adaptive_identity-102-2",
+          "value": 195.4
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-adaptive_identity-103-1",
+          "value": 184.6
+        },
+        {
+          "seed": 103,
+          "episode_id": "ep-adaptive_identity-103-2",
+          "value": 201.8
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-adaptive_identity-104-1",
+          "value": 194.1
+        },
+        {
+          "seed": 104,
+          "episode_id": "ep-adaptive_identity-104-2",
+          "value": 152.8
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-adaptive_identity-105-1",
+          "value": 196.3
+        },
+        {
+          "seed": 105,
+          "episode_id": "ep-adaptive_identity-105-2",
+          "value": 172.5
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-adaptive_identity-106-1",
+          "value": 178.4
+        },
+        {
+          "seed": 106,
+          "episode_id": "ep-adaptive_identity-106-2",
+          "value": 178.6
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-adaptive_identity-107-1",
+          "value": 178.2
+        },
+        {
+          "seed": 107,
+          "episode_id": "ep-adaptive_identity-107-2",
+          "value": 175.7
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-adaptive_identity-108-1",
+          "value": 162.1
+        },
+        {
+          "seed": 108,
+          "episode_id": "ep-adaptive_identity-108-2",
+          "value": 234.8
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-adaptive_identity-109-1",
+          "value": 161.3
+        },
+        {
+          "seed": 109,
+          "episode_id": "ep-adaptive_identity-109-2",
+          "value": 208.4
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-adaptive_identity-110-1",
+          "value": 155.2
+        },
+        {
+          "seed": 110,
+          "episode_id": "ep-adaptive_identity-110-2",
+          "value": 238.2
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-adaptive_identity-111-1",
+          "value": 137
+        },
+        {
+          "seed": 111,
+          "episode_id": "ep-adaptive_identity-111-2",
+          "value": 205.4
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-adaptive_identity-112-1",
+          "value": 179.2
+        },
+        {
+          "seed": 112,
+          "episode_id": "ep-adaptive_identity-112-2",
+          "value": 171.9
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-adaptive_identity-113-1",
+          "value": 184.3
+        },
+        {
+          "seed": 113,
+          "episode_id": "ep-adaptive_identity-113-2",
+          "value": 174.8
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-adaptive_identity-114-1",
+          "value": 175.8
+        },
+        {
+          "seed": 114,
+          "episode_id": "ep-adaptive_identity-114-2",
+          "value": 227.2
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-adaptive_identity-115-1",
+          "value": 157
+        },
+        {
+          "seed": 115,
+          "episode_id": "ep-adaptive_identity-115-2",
+          "value": 191
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-adaptive_identity-116-1",
+          "value": 183.1
+        },
+        {
+          "seed": 116,
+          "episode_id": "ep-adaptive_identity-116-2",
+          "value": 178.4
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-adaptive_identity-117-1",
+          "value": 166.2
+        },
+        {
+          "seed": 117,
+          "episode_id": "ep-adaptive_identity-117-2",
+          "value": 129.4
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-adaptive_identity-118-1",
+          "value": 185.5
+        },
+        {
+          "seed": 118,
+          "episode_id": "ep-adaptive_identity-118-2",
+          "value": 210.3
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-adaptive_identity-119-1",
+          "value": 188
+        },
+        {
+          "seed": 119,
+          "episode_id": "ep-adaptive_identity-119-2",
+          "value": 177.8
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-adaptive_identity-120-1",
+          "value": 189.9
+        },
+        {
+          "seed": 120,
+          "episode_id": "ep-adaptive_identity-120-2",
+          "value": 205.7
+        }
+      ],
+      "update_latency_ms": [
+        341.01,
+        200.34,
+        337.13,
+        232.1,
+        178.88,
+        296.9,
+        243.56,
+        244.7,
+        303.7,
+        289.01,
+        173.28,
+        264.17,
+        153.68,
+        216.04,
+        185.12,
+        153.22,
+        230.93,
+        256.49,
+        223.21,
+        115.31,
+        279.91,
+        173.22,
+        209.85,
+        270.65,
+        313.96,
+        302.36,
+        222.45,
+        310.72,
+        238.2,
+        271.5,
+        290.63,
+        249.3,
+        128.88,
+        313.61,
+        234.07,
+        245.4,
+        278.32,
+        206.79,
+        164.4,
+        194.79,
+        329.55,
+        240.28,
+        199.33,
+        312.04,
+        265.74,
+        226.15,
+        260.59,
+        285.68,
+        269.92,
+        290.53,
+        262.52,
+        241.76,
+        257.46,
+        288.87,
+        222.26,
+        246.78,
+        250.16,
+        260.97,
+        190.85,
+        217.1,
+        159.44,
+        257.24,
+        217.83,
+        341.71,
+        226.91,
+        244.7,
+        203.26,
+        213.63,
+        305.21,
+        173.23,
+        238.56,
+        232.24,
+        226.04,
+        252.01,
+        261.29,
+        248.83,
+        287.22,
+        221.97,
+        181.34,
+        218.98,
+        228.14,
+        161.64,
+        204.27,
+        275.26,
+        213.22,
+        259.04,
+        331.34,
+        276.34,
+        346.2,
+        292.74,
+        280.95,
+        244.19,
+        279.85,
+        240.83,
+        220.96,
+        294.39,
+        267.9,
+        283.62,
+        249.97,
+        207.36
+      ],
+      "enforcement_call_ms": [
+        86.92,
+        151.21,
+        76.48,
+        99.78,
+        139.81,
+        146.55,
+        104.27,
+        130.59,
+        159.58,
+        127.09,
+        145.55,
+        179.19,
+        154.19,
+        160.76,
+        118.43,
+        161.84,
+        156.67,
+        149.78,
+        124.33,
+        133.02,
+        136.07,
+        108.41,
+        143.89,
+        118.52,
+        105.06,
+        126.45,
+        136.43,
+        167.16,
+        201.92,
+        106.29,
+        144.74,
+        166.78,
+        149.66,
+        130.9,
+        136.32,
+        116.64,
+        118.05,
+        91.38,
+        116.26,
+        140.36,
+        128.04,
+        138.56,
+        137.85,
+        154.26,
+        102.36,
+        116.04,
+        111.59,
+        93.88,
+        126.43,
+        157.45,
+        114.52,
+        130.16,
+        135.33,
+        149.44,
+        157.61,
+        105.18,
+        79.42,
+        198.7,
+        104.31,
+        135.97,
+        113.73,
+        147.05,
+        184.43,
+        142.87,
+        139.97,
+        135.48,
+        141.99,
+        142.76,
+        140.26,
+        91.91,
+        153.36,
+        126.72,
+        102.47,
+        163.48,
+        154.72,
+        162.91,
+        122.12,
+        133.13,
+        134.35,
+        133.63,
+        143.82,
+        147.09,
+        136.9,
+        142.21,
+        148.93,
+        125.32,
+        112.86,
+        114.79,
+        130.67,
+        124.57,
+        108.33,
+        129.57,
+        143.98,
+        123.28,
+        83.66,
+        101.77,
+        118.92,
+        147.29,
+        107.65,
+        102.85
+      ],
+      "time_to_effective_ms": [
+        333.8,
+        330.81,
+        240.02,
+        303.95,
+        292.24,
+        344.99,
+        309.39,
+        339.96,
+        236.47,
+        347.37,
+        341.64,
+        291.59,
+        324.61,
+        325.72,
+        288.01,
+        291.01,
+        241.39,
+        328.33,
+        358.21,
+        284.98,
+        380.48,
+        329.06,
+        343.88,
+        342.08,
+        308.15,
+        343.75,
+        282.63,
+        290.62,
+        356.08,
+        305.28,
+        330.12,
+        268.67,
+        337.52,
+        277.48,
+        272.23,
+        250.79,
+        320.49,
+        292.7,
+        303.45,
+        382.43,
+        289.02,
+        323.92,
+        359.32,
+        275.79,
+        339.48,
+        353.73,
+        244.09,
+        310.64,
+        283.2,
+        244.33,
+        331.1,
+        339.87,
+        339.25,
+        227.79,
+        316.67,
+        396.19,
+        403.55,
+        309.05,
+        274.33,
+        278.59,
+        166.44,
+        244.96,
+        326.69,
+        321.66,
+        288.25,
+        248.37,
+        294.85,
+        216.38,
+        287.62,
+        273.15,
+        312.74,
+        320.19,
+        324.24,
+        337.62,
+        322.2,
+        380.54,
+        359.19,
+        324.19,
+        290.87,
+        213.97,
+        257.62,
+        342.39,
+        360.46,
+        371.18,
+        308.83,
+        281.89,
+        352.98,
+        285.11,
+        326.52,
+        337.08,
+        264.4,
+        256.82,
+        270.46,
+        325.13,
+        329.48,
+        308.68,
+        353.42,
+        288.01,
+        301.54,
+        331.43
+      ]
+    }
+  },
+  "risk_timeseries": {
+    "static": {
+      "points": [
+        {
+          "t_rel_s": 0,
+          "risk_u": 0.1,
+          "risk_w": 0.1
+        },
+        {
+          "t_rel_s": 15,
+          "risk_u": 0.18,
+          "risk_w": 0.12
+        },
+        {
+          "t_rel_s": 30,
+          "risk_u": 0.28,
+          "risk_w": 0.15
+        },
+        {
+          "t_rel_s": 45,
+          "risk_u": 0.42,
+          "risk_w": 0.22
+        },
+        {
+          "t_rel_s": 60,
+          "risk_u": 0.58,
+          "risk_w": 0.35
+        },
+        {
+          "t_rel_s": 75,
+          "risk_u": 0.72,
+          "risk_w": 0.45
+        },
+        {
+          "t_rel_s": 90,
+          "risk_u": 0.85,
+          "risk_w": 0.52
+        },
+        {
+          "t_rel_s": 105,
+          "risk_u": 0.92,
+          "risk_w": 0.58
+        },
+        {
+          "t_rel_s": 120,
+          "risk_u": 0.95,
+          "risk_w": 0.6
+        }
+      ],
+      "events": []
+    },
+    "adaptive": {
+      "points": [
+        {
+          "t_rel_s": 0,
+          "risk_u": 0.1,
+          "risk_w": 0.1
+        },
+        {
+          "t_rel_s": 10,
+          "risk_u": 0.15,
+          "risk_w": 0.12
+        },
+        {
+          "t_rel_s": 20,
+          "risk_u": 0.32,
+          "risk_w": 0.18
+        },
+        {
+          "t_rel_s": 30,
+          "risk_u": 0.55,
+          "risk_w": 0.28
+        },
+        {
+          "t_rel_s": 40,
+          "risk_u": 0.78,
+          "risk_w": 0.42
+        },
+        {
+          "t_rel_s": 50,
+          "risk_u": 0.84,
+          "risk_w": 0.4
+        },
+        {
+          "t_rel_s": 65,
+          "risk_u": 0.62,
+          "risk_w": 0.32
+        },
+        {
+          "t_rel_s": 85,
+          "risk_u": 0.38,
+          "risk_w": 0.22
+        },
+        {
+          "t_rel_s": 100,
+          "risk_u": 0.21,
+          "risk_w": 0.15
+        },
+        {
+          "t_rel_s": 120,
+          "risk_u": 0.12,
+          "risk_w": 0.1
+        }
+      ],
+      "events": [
+        {
+          "t_rel_s": 34.2,
+          "type": "ENFORCED"
+        },
+        {
+          "t_rel_s": 92.5,
+          "type": "RESTORED"
+        }
+      ]
+    },
+    "identity": {
+      "points": [
+        {
+          "t_rel_s": 0,
+          "risk_u": 0.1,
+          "risk_w": 0.1
+        },
+        {
+          "t_rel_s": 10,
+          "risk_u": 0.18,
+          "risk_w": 0.12
+        },
+        {
+          "t_rel_s": 25,
+          "risk_u": 0.45,
+          "risk_w": 0.2
+        },
+        {
+          "t_rel_s": 35,
+          "risk_u": 0.74,
+          "risk_w": 0.35
+        },
+        {
+          "t_rel_s": 45,
+          "risk_u": 0.86,
+          "risk_w": 0.42
+        },
+        {
+          "t_rel_s": 60,
+          "risk_u": 0.72,
+          "risk_w": 0.38
+        },
+        {
+          "t_rel_s": 80,
+          "risk_u": 0.48,
+          "risk_w": 0.25
+        },
+        {
+          "t_rel_s": 100,
+          "risk_u": 0.25,
+          "risk_w": 0.14
+        },
+        {
+          "t_rel_s": 120,
+          "risk_u": 0.12,
+          "risk_w": 0.1
+        }
+      ],
+      "events": [
+        {
+          "t_rel_s": 37.8,
+          "type": "ENFORCED"
+        },
+        {
+          "t_rel_s": 38.3,
+          "type": "FIRST_REJECTED"
+        },
+        {
+          "t_rel_s": 96,
+          "type": "RESTORED"
+        }
+      ]
+    },
+    "adaptive_identity": {
+      "points": [
+        {
+          "t_rel_s": 0,
+          "risk_u": 0.1,
+          "risk_w": 0.1
+        },
+        {
+          "t_rel_s": 10,
+          "risk_u": 0.2,
+          "risk_w": 0.15
+        },
+        {
+          "t_rel_s": 20,
+          "risk_u": 0.44,
+          "risk_w": 0.25
+        },
+        {
+          "t_rel_s": 30,
+          "risk_u": 0.76,
+          "risk_w": 0.4
+        },
+        {
+          "t_rel_s": 40,
+          "risk_u": 0.88,
+          "risk_w": 0.48
+        },
+        {
+          "t_rel_s": 55,
+          "risk_u": 0.65,
+          "risk_w": 0.35
+        },
+        {
+          "t_rel_s": 70,
+          "risk_u": 0.42,
+          "risk_w": 0.22
+        },
+        {
+          "t_rel_s": 90,
+          "risk_u": 0.22,
+          "risk_w": 0.14
+        },
+        {
+          "t_rel_s": 110,
+          "risk_u": 0.11,
+          "risk_w": 0.1
+        }
+      ],
+      "events": [
+        {
+          "t_rel_s": 31,
+          "type": "ENFORCED"
+        },
+        {
+          "t_rel_s": 31.4,
+          "type": "FIRST_REJECTED"
+        },
+        {
+          "t_rel_s": 88,
+          "type": "RESTORED"
+        }
+      ]
+    }
+  },
+  "ablation": [
+    {
+      "mode": "Static SCP",
+      "violations": 120,
+      "false_denies": 10,
+      "reduction_pct": 0
+    },
+    {
+      "mode": "SCP + Context-Aware Engine",
+      "violations": 78,
+      "false_denies": 6,
+      "reduction_pct": 35
+    },
+    {
+      "mode": "SCP + ML Risk Assessment",
+      "violations": 65,
+      "false_denies": 4,
+      "reduction_pct": 45.8
+    },
+    {
+      "mode": "Full Adaptive AC-SCP Framework",
+      "violations": 45,
+      "false_denies": 3,
+      "reduction_pct": 62.5
+    }
+  ],
+  "scalability": [
+    {
+      "tenants": 10,
+      "users": 500,
+      "avg_update_latency_ms": 182,
+      "violations": 12
+    },
+    {
+      "tenants": 25,
+      "users": 1250,
+      "avg_update_latency_ms": 205,
+      "violations": 21
+    },
+    {
+      "tenants": 50,
+      "users": 2500,
+      "avg_update_latency_ms": 247,
+      "violations": 45
+    },
+    {
+      "tenants": 100,
+      "users": 5000,
+      "avg_update_latency_ms": 289,
+      "violations": 83
+    },
+    {
+      "tenants": 200,
+      "users": 10000,
+      "avg_update_latency_ms": 332,
+      "violations": 155
+    }
+  ]
+}

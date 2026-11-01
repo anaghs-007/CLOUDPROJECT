@@ -1,0 +1,21 @@
+{
+  "name": "ac-scp-dashboard-ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-plotly.js": "^2.6.0",
+    "plotly.js-dist-min": "^3.1.0",
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  }
+}
