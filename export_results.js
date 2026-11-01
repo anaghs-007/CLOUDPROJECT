@@ -47,19 +47,31 @@ function loadRunSummary(sessionId) {
 async function exportResults() {
   const client = await pool.connect();
   try {
+    const runsDir = path.join(__dirname, 'results', 'runs');
+    const matrixSessions = fs.existsSync(runsDir)
+      ? fs.readdirSync(runsDir)
+        .filter((name) => name.endsWith('.json'))
+        .map((name) => path.basename(name, '.json'))
+      : [];
+    if (matrixSessions.length === 0) {
+      throw new Error('No benchmark run manifests found in results/runs. Run run_benchmark_matrix.py first.');
+    }
+
     // 1. Gather all metrics per session
     const metricsRes = await client.query(`
       SELECT session_id, policy_type, total_requests, violations_missed, violations_blocked,
              false_denies, avg_exposure_seconds, avg_update_latency_ms, policy_changes
       FROM adaptive_metrics
+      WHERE session_id = ANY($1::text[])
       ORDER BY created_at ASC
-    `);
+    `, [matrixSessions]);
     const baselineRes = await client.query(`
       SELECT session_id, total_requests, violations_missed, violations_detected,
              false_positives, avg_exposure_seconds, avg_latency_ms
       FROM baseline_metrics
+      WHERE session_id = ANY($1::text[])
       ORDER BY created_at ASC
-    `);
+    `, [matrixSessions]);
     if (metricsRes.rows.length === 0 && baselineRes.rows.length === 0) {
       throw new Error('No aggregated benchmark metrics found. Run the live benchmark matrix first; refusing to write benchmark.json.');
     }
@@ -90,8 +102,9 @@ async function exportResults() {
     const episodesRes = await client.query(`
       SELECT episode_id, session_id, user_id, exposure_seconds, contained, first_malicious_ts
       FROM attack_episodes
+      WHERE session_id = ANY($1::text[])
       ORDER BY first_malicious_ts ASC
-    `);
+    `, [matrixSessions]);
 
     // 3. Gather latency samples
     const policyUpdatesRes = await client.query(`
@@ -102,23 +115,26 @@ async function exportResults() {
     const identityEventsRes = await client.query(`
       SELECT session_id, user_id, action, enforcement_call_ms, time_to_effective_ms, enforced_at
       FROM identity_enforcement_events
+      WHERE session_id = ANY($1::text[])
       ORDER BY enforced_at ASC
-    `);
+    `, [matrixSessions]);
 
     // 5. Gather risk score history
     const riskHistoryRes = await client.query(`
       SELECT session_id, policy_mode, entity_type, entity_id, risk, scored_at
       FROM risk_score_history
+      WHERE session_id = ANY($1::text[])
       ORDER BY scored_at ASC
-    `);
+    `, [matrixSessions]);
 
     // 6. Gather token overhead
     const overheadRes = await client.query(`
       SELECT session_id, AVG(identity_validation_ms) AS overhead_ms
       FROM telemetry_logs
       WHERE identity_validation_ms IS NOT NULL
+        AND session_id = ANY($1::text[])
       GROUP BY session_id
-    `);
+    `, [matrixSessions]);
     const overheadMap = {};
     for (const row of overheadRes.rows) {
       overheadMap[row.session_id] = Number(row.overhead_ms || 0);

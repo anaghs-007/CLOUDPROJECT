@@ -50,7 +50,7 @@ Set real local values in `.env`:
 
 ```ini
 PGHOST=localhost
-PGPORT=5432
+PGPORT=55432
 PGUSER=postgres
 PGPASSWORD=your-postgres-password
 PGDATABASE=acscp
@@ -105,13 +105,19 @@ $env:PGUSER_RO="dashboard_ro"
 $env:PGPASSWORD_RO="your-dashboard-readonly-password"
 ```
 
-## 6. Start Keycloak
+## 6. Start PostgreSQL and Keycloak
 
 ```powershell
 cd D:\CLOUDPROJECT
 docker compose down
 docker compose up -d
 ```
+
+This starts both PostgreSQL (`localhost:55432`) and Keycloak
+(`localhost:8080`). The PostgreSQL init scripts create the `acscp` database,
+all tables, and the `dashboard_ro` read-only role with password
+`dashboard-password` on a fresh Docker volume. If the volume already exists,
+apply changed SQL manually or recreate only the named `postgres-data` volume.
 
 Wait for the imported realm, not `/health/ready`:
 

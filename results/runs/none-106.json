@@ -3,7 +3,7 @@
   "mode": "none",
   "seed": 106,
   "requests": 500,
-  "duration_seconds": 1.3968520000344142,
-  "stdout": "session_id=none-106\nscenario=default\ntotal=500 blocked=0\nallowed_normal=404 blocked_normal=0\nblocked_threats=0 MISSED_threats=96\navg_latency_ms=58.518\navg_exposure_per_episode=0.183s\n",
-  "timestamp": "2026-11-01T09:03:20.586328+00:00"
+  "duration_seconds": 1.3670112999971025,
+  "stdout": "session_id=none-106\nscenario=default\ntotal=500 blocked=0\nallowed_normal=404 blocked_normal=0\nblocked_threats=0 MISSED_threats=96\navg_latency_ms=63.557\navg_exposure_per_episode=0.135s\n",
+  "timestamp": "2026-11-01T13:33:25.244175+00:00"
 }

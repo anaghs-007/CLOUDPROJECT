@@ -26,7 +26,12 @@ def train_models():
     for name, rows in {'user': user_rows, 'workload': workload_rows}.items():
         X = [row[0] for row in rows]
         y = [row[1] for row in rows]
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+        if len(rows) < 10:
+            X_train, X_test, y_train, y_test = X, X, y, y
+        else:
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=0.2, random_state=42, stratify=y
+            )
         model = Pipeline([
             ('scaler', StandardScaler()),
             ('clf', LogisticRegression(class_weight='balanced', max_iter=1000))
@@ -35,7 +40,7 @@ def train_models():
         preds = model.predict(X_test)
         proba = model.predict_proba(X_test)[:, 1]
         precision, recall, _, _ = precision_recall_fscore_support(y_test, preds, average='binary', zero_division=0)
-        roc = roc_auc_score(y_test, proba)
+        roc = roc_auc_score(y_test, proba) if len(set(y_test)) > 1 else float('nan')
         print(f'{name}: precision={precision:.4f} recall={recall:.4f} ROC-AUC={roc:.4f}')
         with open(os.path.join(ROOT, f'{name}_model.pkl'), 'wb') as handle:
             pickle.dump(model, handle)

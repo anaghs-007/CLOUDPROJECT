@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { insertShadowDecision } = require('./db');
+const { insertShadowDecision, pool } = require('./db');
 
 const DEFAULTS = Object.freeze({
   tau1: 0.5,
@@ -69,6 +69,55 @@ function getRiskSnapshot() {
   return { user: {}, workload: {} };
 }
 
+function observableRiskFallback(ctx) {
+  let userRisk = 0;
+  let workloadRisk = 0;
+  const restrictedResource = ctx.label === 'restricted' || ctx.resource.startsWith('/api/admin');
+
+  if (restrictedResource && ctx.role === 'admin' && !['us-east', 'us-west'].includes(ctx.region)) {
+    userRisk = 0.65;
+  } else if (restrictedResource && ctx.role === 'admin') {
+    userRisk = 0.5;
+  }
+  if (ctx.action === 'DELETE' || ctx.resource.startsWith('/api/admin')) {
+    workloadRisk = 0.6;
+  }
+  return { userRisk, workloadRisk };
+}
+
+async function resolveRequestRisk(req, ctx) {
+  const explicitUserRisk = req.headers['x-risk-u'] ?? req.risk_u;
+  const explicitWorkloadRisk = req.headers['x-risk-w'] ?? req.risk_w;
+  const fallback = observableRiskFallback(ctx);
+  let userRisk = explicitUserRisk === undefined ? fallback.userRisk : Number(explicitUserRisk);
+  let workloadRisk = explicitWorkloadRisk === undefined ? fallback.workloadRisk : Number(explicitWorkloadRisk);
+
+  if (explicitUserRisk !== undefined && explicitWorkloadRisk !== undefined) {
+    return { userRisk, workloadRisk };
+  }
+
+  try {
+    if (explicitUserRisk === undefined && req.userId) {
+      const result = await pool.query(
+        'SELECT risk FROM user_risk_scores WHERE user_id = $1',
+        [req.userId],
+      );
+      if (result.rows[0]) userRisk = Math.max(userRisk, Number(result.rows[0].risk));
+    }
+    if (explicitWorkloadRisk === undefined && req.headers['x-workload-id']) {
+      const result = await pool.query(
+        'SELECT risk FROM workload_risk_scores WHERE workload_id = $1',
+        [req.headers['x-workload-id']],
+      );
+      if (result.rows[0]) workloadRisk = Math.max(workloadRisk, Number(result.rows[0].risk));
+    }
+  } catch (error) {
+    console.error('[adaptive-risk] score lookup failed; using observable fallback:', error.message);
+  }
+
+  return { userRisk, workloadRisk };
+}
+
 function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
   validateTemplateSet(templates);
   const state = { allowed: true, template_id: 'STATIC', reason: 'none' };
@@ -125,7 +174,7 @@ function evaluateAdaptiveSCP(ctx, templates = loadTemplates()) {
   return state;
 }
 
-function adaptivePolicyEngine(req, res, next) {
+async function adaptivePolicyEngine(req, res, next) {
   const mode = req.policyMode || process.env.POLICY_MODE || 'adaptive';
 
   // In pure 'identity' mode, Keycloak is the sole enforcement mechanism.
@@ -143,10 +192,15 @@ function adaptivePolicyEngine(req, res, next) {
     action: req.method,
     label: req.sensitivityLabel || 'internal',
     region: req.headers['x-region'] || 'us-east',
-    risk_u: Number(req.headers['x-risk-u'] || req.risk_u || 0),
-    risk_w: Number(req.headers['x-risk-w'] || req.risk_w || 0),
+    risk_u: 0,
+    risk_w: 0,
     misconfigured: !!(req.headers['x-misconfigured'] === 'true' || req.workloadMisconfigured),
   };
+  const resolvedRisk = await resolveRequestRisk(req, ctx);
+  ctx.risk_u = resolvedRisk.userRisk;
+  ctx.risk_w = resolvedRisk.workloadRisk;
+  req.risk_u = ctx.risk_u;
+  req.risk_w = ctx.risk_w;
   const decision = evaluateAdaptiveSCP(ctx);
 
   if (mode === 'adaptive_shadow') {

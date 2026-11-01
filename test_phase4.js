@@ -143,7 +143,7 @@ test("mode='none' → next() called immediately", () => {
   assert.strictEqual(nextCalled, true);
 });
 
-test("mode='adaptive' → risk-cache predicates run (developer+admin path blocked)", () => {
+testAsync("mode='adaptive' → risk-cache predicates run (developer+admin path blocked)", async () => {
   const original = process.env.POLICY_MODE;
   process.env.POLICY_MODE = 'adaptive';
   const req = {
@@ -160,12 +160,12 @@ test("mode='adaptive' → risk-cache predicates run (developer+admin path blocke
     json() { return this; },
     set() { return this; },
   };
-  adaptivePolicyEngine(req, res, () => {});
+  await adaptivePolicyEngine(req, res, () => {});
   process.env.POLICY_MODE = original;
   assert.strictEqual(res._status, 403, 'adaptive mode must enforce ROLE_BOUNDARY');
 });
 
-test("mode='adaptive_identity' → Phase 3 predicates also run", () => {
+testAsync("mode='adaptive_identity' → Phase 3 predicates also run", async () => {
   const original = process.env.POLICY_MODE;
   process.env.POLICY_MODE = 'adaptive_identity';
   const req = {
@@ -182,7 +182,7 @@ test("mode='adaptive_identity' → Phase 3 predicates also run", () => {
     json() { return this; },
     set() { return this; },
   };
-  adaptivePolicyEngine(req, res, () => {});
+  await adaptivePolicyEngine(req, res, () => {});
   process.env.POLICY_MODE = original;
   assert.strictEqual(res._status, 403);
 });
@@ -416,4 +416,3 @@ testMiddlewareGate().then(() => {
     process.exit(1);
   }
 });
-

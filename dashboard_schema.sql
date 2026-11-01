@@ -3,10 +3,11 @@
 DO $$
 BEGIN
   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'dashboard_ro') THEN
-    CREATE ROLE dashboard_ro LOGIN PASSWORD 'replace-dashboard-ro-password';
+    CREATE ROLE dashboard_ro LOGIN PASSWORD 'dashboard-password';
   END IF;
 END
 $$;
+ALTER ROLE dashboard_ro PASSWORD 'dashboard-password';
 GRANT CONNECT ON DATABASE acscp TO dashboard_ro;
 GRANT USAGE ON SCHEMA public TO dashboard_ro;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO dashboard_ro;

@@ -2,6 +2,7 @@
 """Unit tests for analyze_results.py using a controlled tiny fixture."""
 
 import unittest
+import json
 from analyze_results import (
     bootstrap_ci,
     bootstrap_reduction_ci,
@@ -96,8 +97,8 @@ class TestAnalyzeResults(unittest.TestCase):
         self.assertIn("adaptive_vs_static", res["pairwise_comparisons"])
         pair = res["pairwise_comparisons"]["adaptive_vs_static"]
         self.assertTrue(pair["reduction_pct"] > 50.0)
+        json.dumps(res, allow_nan=False)
 
 
 if __name__ == "__main__":
     unittest.main()
-

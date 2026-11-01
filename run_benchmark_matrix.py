@@ -186,6 +186,7 @@ def run_single_benchmark(mode, seed, requests_count, base_url):
     # Pass POLICY_MODE in subprocess environment
     env = os.environ.copy()
     env["POLICY_MODE"] = mode
+    env["BENCHMARK_MODE_HEADER"] = "true"
     env["SESSION_ID"] = session_id
 
     # Execute simulation

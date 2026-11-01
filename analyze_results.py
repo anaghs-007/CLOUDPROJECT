@@ -9,6 +9,7 @@ Produces results/stats.json consumed by the research dashboard.
 
 import argparse
 import json
+import math
 import os
 import sys
 from pathlib import Path
@@ -18,6 +19,17 @@ import scipy.stats as stats
 
 ROOT = Path(__file__).resolve().parent
 RESULTS_DIR = ROOT / "results"
+
+
+def json_safe(value):
+    """Replace non-finite numeric values before writing strict JSON."""
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {key: json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [json_safe(item) for item in value]
+    return value
 
 
 def bootstrap_ci(values, stat_func=np.mean, n_boot=2000, alpha=0.05, seed=42):
@@ -178,6 +190,10 @@ def analyze(benchmark_data):
                     u_res = stats.mannwhitneyu(target_missed, base_missed, alternative="two-sided")
                     p_val = float(u_res.pvalue)
                     u_stat = float(u_res.statistic)
+                    if not math.isfinite(p_val):
+                        p_val = 1.0
+                    if not math.isfinite(u_stat):
+                        u_stat = 0.0
                 except Exception:
                     p_val = 1.0
                     u_stat = 0.0
@@ -263,7 +279,7 @@ def main():
     out_path = Path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(stats_output, f, indent=2)
+        json.dump(json_safe(stats_output), f, indent=2, allow_nan=False)
 
     print(f"[OK] Analysis complete. Wrote: {out_path}")
 

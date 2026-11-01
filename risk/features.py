@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import json
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime, timedelta
 
 
@@ -19,12 +19,13 @@ def compute_user_features(rows, window_minutes=15):
     recent = [r for r in rows if parse_ts(r.get('effective_ts')) >= cutoff]
     if not recent:
         recent = rows
-    api_counts = Counter(r.get('action') for r in recent)
+    api_counts = Counter(r.get('resource') for r in recent)
     total = max(1, len(recent))
-    baseline = defaultdict(float)
-    for r in recent:
-        baseline[r.get('resource', '')] += 1
-    outside_baseline = sum(1 for r in recent if r.get('resource') not in baseline) / total
+    baseline = Counter(r.get('resource', '') for r in rows if r.get('resource'))
+    outside_baseline = sum(
+        1 for r in recent
+        if baseline.get(r.get('resource', ''), 0) <= 1
+    ) / total
     hours = [parse_ts(r.get('effective_ts')).hour for r in recent]
     hour_deviation = (sum(abs(h - 14) for h in hours) / total) / 24.0
     regions = [r.get('region') for r in recent if r.get('region')]
@@ -33,7 +34,7 @@ def compute_user_features(rows, window_minutes=15):
     sensitive = sum(1 for r in recent if r.get('sensitivity_label') in {'restricted', 'regulated'})
     peak_requests = Counter(parse_ts(r.get('effective_ts')).strftime('%Y-%m-%d %H:%M') for r in recent)
     return {
-        'api_diversity': len(api_counts) / max(1.0, len(api_counts)),
+        'api_diversity': len(api_counts) / total,
         'outside_baseline_api_share': float(outside_baseline),
         'hour_deviation': float(hour_deviation),
         'region_deviation': float(region_deviation),
@@ -56,7 +57,13 @@ def compute_workload_features(rows, window_minutes=15):
     inter_region = sum(1 for r in recent if r.get('region') and r.get('resource') and 'region' in r.get('resource', '').lower())
     config_changes = sum(1 for r in recent if r.get('privilege_escalation'))
     misconfig = sum(1 for r in recent if not r.get('encrypted') or r.get('public_exposed'))
-    sensitivity = {'public': 0.2, 'internal': 0.5, 'regulated': 1.0}.get(r.get('sensitivity_label'), 0.0) if recent else 0.0
+    sensitivity_values = [
+        {'public': 0.2, 'internal': 0.5, 'regulated': 1.0}.get(
+            row.get('sensitivity_label'), 0.0
+        )
+        for row in recent
+    ]
+    sensitivity = sum(sensitivity_values) / total
     incidents = sum(1 for r in recent if r.get('decision') == 'BLOCKED' and r.get('sim_label') == 'threat')
     return {
         'storage_access_rate': float(storage / total),

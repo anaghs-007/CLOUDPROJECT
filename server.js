@@ -20,6 +20,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/internal/policy-mode', (req, res) => {
+  res.json({
+    policy_mode: process.env.POLICY_MODE || 'adaptive',
+    benchmark_mode_header: process.env.BENCHMARK_MODE_HEADER === 'true',
+  });
+});
+
 // Decode only for the legacy non-identity modes. Identity modes verify below.
 function extractUserId(req) {
   const auth = req.headers['authorization'];

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-01T09:02:58.056116+00:00",
+  "generated_at": "2026-11-01T13:33:04.317217+00:00",
   "meta": {
-    "git_commit": "50a8d9a00d0cbdc89891b46d5413f7bb635507cb",
+    "git_commit": "f0028bdd7f048d1da6979186a1231c8c145c7217",
     "seeds": [
       101,
       102,
@@ -29,7 +29,7 @@
     "access_token_lifespan": 60,
     "revocation_check_mode": "backchannel",
     "hardware_os": "Windows 11 / AMD64 / Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-    "timestamp": "2026-11-01T09:02:58.056116+00:00",
+    "timestamp": "2026-11-01T13:33:04.317217+00:00",
     "mock": false
   },
   "mode_statistics": {
@@ -96,7 +96,7 @@
         "low_sample_size": true
       },
       "exposure_seconds": {
-        "n": 0,
+        "n": 10,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -259,18 +259,6 @@
       "runs_count": 10,
       "violations_missed": {
         "n": 10,
-        "mean": 106.0,
-        "std": 8.589,
-        "median": 105.5,
-        "p95": 118.1,
-        "ci_95": [
-          101.097,
-          110.802
-        ],
-        "low_sample_size": true
-      },
-      "violations_blocked": {
-        "n": 10,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -278,6 +266,18 @@
         "ci_95": [
           0.0,
           0.0
+        ],
+        "low_sample_size": true
+      },
+      "violations_blocked": {
+        "n": 10,
+        "mean": 106.0,
+        "std": 8.589,
+        "median": 105.5,
+        "p95": 118.1,
+        "ci_95": [
+          101.097,
+          110.802
         ],
         "low_sample_size": true
       },
@@ -318,7 +318,7 @@
         "low_sample_size": true
       },
       "exposure_seconds": {
-        "n": 0,
+        "n": 10,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -594,15 +594,15 @@
       "target_mode": "adaptive",
       "base_mode": "static",
       "metric": "violations_missed",
-      "mann_whitney_u": 100.0,
-      "p_value": 0.00017761066068896375,
+      "mann_whitney_u": 0.0,
+      "p_value": 6.158218645749835e-05,
       "significance": "***",
-      "cliffs_delta": 1.0,
+      "cliffs_delta": -1.0,
       "effect_size": "large",
-      "reduction_pct": -52.74,
+      "reduction_pct": 100.0,
       "reduction_pct_ci_95": [
-        -67.64,
-        -39.34
+        100.0,
+        100.0
       ]
     },
     "identity_vs_static": {
@@ -639,11 +639,11 @@
       "target_mode": "adaptive",
       "base_mode": "identity",
       "metric": "violations_missed",
-      "mann_whitney_u": 100.0,
-      "p_value": 6.386444750436982e-05,
-      "significance": "***",
-      "cliffs_delta": 1.0,
-      "effect_size": "large",
+      "mann_whitney_u": 50.0,
+      "p_value": 1.0,
+      "significance": "ns",
+      "cliffs_delta": 0.0,
+      "effect_size": "negligible",
       "reduction_pct": 0.0,
       "reduction_pct_ci_95": [
         0.0,
@@ -654,15 +654,15 @@
       "target_mode": "adaptive_identity",
       "base_mode": "adaptive",
       "metric": "violations_missed",
-      "mann_whitney_u": 0.0,
-      "p_value": 6.386444750436982e-05,
-      "significance": "***",
-      "cliffs_delta": -1.0,
-      "effect_size": "large",
-      "reduction_pct": 100.0,
+      "mann_whitney_u": 50.0,
+      "p_value": 1.0,
+      "significance": "ns",
+      "cliffs_delta": 0.0,
+      "effect_size": "negligible",
+      "reduction_pct": 0.0,
       "reduction_pct_ci_95": [
-        100.0,
-        100.0
+        0.0,
+        0.0
       ]
     }
   }

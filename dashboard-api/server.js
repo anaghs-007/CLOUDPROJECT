@@ -37,7 +37,7 @@ const pool = new Pool({
   host: process.env.PGHOST || 'localhost',
   port: Number(process.env.PGPORT || 5432),
   user: process.env.PGUSER_RO || 'dashboard_ro',
-  password: process.env.PGPASSWORD_RO || '',
+  password: process.env.PGPASSWORD_RO || 'dashboard-password',
   database: process.env.PGDATABASE || 'acscp',
   max: 10,
   idleTimeoutMillis: 30000,

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "git_commit": "50a8d9a00d0cbdc89891b46d5413f7bb635507cb",
+    "git_commit": "f0028bdd7f048d1da6979186a1231c8c145c7217",
     "seeds": [
       101,
       102,
@@ -28,7 +28,7 @@
     "access_token_lifespan": 60,
     "revocation_check_mode": "backchannel",
     "hardware_os": "Windows 11 / AMD64 / Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-    "timestamp": "2026-11-01T09:02:58.056116+00:00",
+    "timestamp": "2026-11-01T13:33:04.317217+00:00",
     "mock": false
   },
   "modes": {
@@ -125,7 +125,58 @@
           "validation_overhead_ms": null
         }
       ],
-      "exposure_seconds": [],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "none-101-threat",
+          "value": 0
+        },
+        {
+          "seed": 102,
+          "episode_id": "none-102-threat",
+          "value": 0
+        },
+        {
+          "seed": 103,
+          "episode_id": "none-103-threat",
+          "value": 0
+        },
+        {
+          "seed": 104,
+          "episode_id": "none-104-threat",
+          "value": 0
+        },
+        {
+          "seed": 105,
+          "episode_id": "none-105-threat",
+          "value": 0
+        },
+        {
+          "seed": 106,
+          "episode_id": "none-106-threat",
+          "value": 0
+        },
+        {
+          "seed": 107,
+          "episode_id": "none-107-threat",
+          "value": 0
+        },
+        {
+          "seed": 108,
+          "episode_id": "none-108-threat",
+          "value": 0
+        },
+        {
+          "seed": 109,
+          "episode_id": "none-109-threat",
+          "value": 0
+        },
+        {
+          "seed": 110,
+          "episode_id": "none-110-threat",
+          "value": 0
+        }
+      ],
       "update_latency_ms": [],
       "enforcement_call_ms": [],
       "time_to_effective_ms": []
@@ -284,8 +335,8 @@
         {
           "seed": 101,
           "total_requests": 500,
-          "violations_missed": 103,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 103,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -293,8 +344,8 @@
         {
           "seed": 102,
           "total_requests": 500,
-          "violations_missed": 98,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 98,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -302,8 +353,8 @@
         {
           "seed": 103,
           "total_requests": 500,
-          "violations_missed": 104,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 104,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -311,8 +362,8 @@
         {
           "seed": 104,
           "total_requests": 500,
-          "violations_missed": 112,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 112,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -320,8 +371,8 @@
         {
           "seed": 105,
           "total_requests": 500,
-          "violations_missed": 119,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 119,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -329,8 +380,8 @@
         {
           "seed": 106,
           "total_requests": 500,
-          "violations_missed": 96,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 96,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -338,8 +389,8 @@
         {
           "seed": 107,
           "total_requests": 500,
-          "violations_missed": 94,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 94,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -347,8 +398,8 @@
         {
           "seed": 108,
           "total_requests": 500,
-          "violations_missed": 110,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 110,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -356,8 +407,8 @@
         {
           "seed": 109,
           "total_requests": 500,
-          "violations_missed": 107,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 107,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
@@ -365,14 +416,65 @@
         {
           "seed": 110,
           "total_requests": 500,
-          "violations_missed": 117,
-          "violations_blocked": 0,
+          "violations_missed": 0,
+          "violations_blocked": 117,
           "false_denies": 0,
           "policy_changes": 500,
           "validation_overhead_ms": null
         }
       ],
-      "exposure_seconds": [],
+      "exposure_seconds": [
+        {
+          "seed": 101,
+          "episode_id": "adaptive-101-threat",
+          "value": 0
+        },
+        {
+          "seed": 102,
+          "episode_id": "adaptive-102-threat",
+          "value": 0
+        },
+        {
+          "seed": 103,
+          "episode_id": "adaptive-103-threat",
+          "value": 0
+        },
+        {
+          "seed": 104,
+          "episode_id": "adaptive-104-threat",
+          "value": 0
+        },
+        {
+          "seed": 105,
+          "episode_id": "adaptive-105-threat",
+          "value": 0
+        },
+        {
+          "seed": 106,
+          "episode_id": "adaptive-106-threat",
+          "value": 0
+        },
+        {
+          "seed": 107,
+          "episode_id": "adaptive-107-threat",
+          "value": 0
+        },
+        {
+          "seed": 108,
+          "episode_id": "adaptive-108-threat",
+          "value": 0
+        },
+        {
+          "seed": 109,
+          "episode_id": "adaptive-109-threat",
+          "value": 0
+        },
+        {
+          "seed": 110,
+          "episode_id": "adaptive-110-threat",
+          "value": 0
+        }
+      ],
       "update_latency_ms": [],
       "enforcement_call_ms": [],
       "time_to_effective_ms": []

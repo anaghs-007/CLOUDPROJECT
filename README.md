@@ -33,13 +33,27 @@ Where:
 
 ### 1. Database Initialization
 
-Create the database and run the schema script:
+The supported local setup starts PostgreSQL and Keycloak together. PostgreSQL
+is not started by the application process.
+
+```powershell
+docker compose up -d
+docker compose ps
+```
+
+The first PostgreSQL start applies `schema.sql`, `baseline_schema.sql`,
+`adaptive_schema.sql`, `identity_enforcement.sql`, and `dashboard_schema.sql`.
+The dashboard API uses `dashboard_ro` / `dashboard-password` by default; set
+`PGPASSWORD_RO` to a different value if you manage PostgreSQL outside Docker.
+
+For a Docker-managed database, the init scripts above already do this. If
+you are managing PostgreSQL yourself, run:
 
 ```bash
-psql -U postgres -c "CREATE DATABASE acscp;"
-psql -U postgres -d acscp -f schema.sql
-psql -U postgres -d acscp -f baseline_schema.sql
-psql -U postgres -d acscp -f adaptive_schema.sql
+psql -h localhost -p 55432 -U postgres -c "CREATE DATABASE acscp;"
+psql -h localhost -p 55432 -U postgres -d acscp -f schema.sql
+psql -h localhost -p 55432 -U postgres -d acscp -f baseline_schema.sql
+psql -h localhost -p 55432 -U postgres -d acscp -f adaptive_schema.sql
 ```
 
 ### 2. Environment Configuration
@@ -48,7 +62,7 @@ Copy `.env.example` to `.env` and set your credentials:
 
 ```ini
 PGHOST=localhost
-PGPORT=5432
+PGPORT=55432
 PGUSER=postgres
 PGPASSWORD=postgres
 PGDATABASE=acscp
@@ -60,6 +74,11 @@ POLICY_MODE=adaptive
 adaptive templates. The static control-group modes (`static`, `static_context`,
 and `static_ml`) intentionally reject requests from IP addresses outside the
 configured private CIDRs, which includes local loopback (`127.0.0.1`).
+
+For benchmark runs, the API must be started with
+`BENCHMARK_MODE_HEADER=true`. This allows each simulator request to select its
+declared matrix mode through `X-Policy-Mode`; changing `POLICY_MODE` in the
+Python runner alone cannot change an already-running Node process.
 
 ### 3. Run the Server
 
@@ -75,6 +94,14 @@ npm run dev
 
 ```bash
 npm test
+```
+
+`npm test` includes the Python feature tests. To train the persisted
+behavioural models used by the scorer, install `requirements.txt` and run:
+
+```powershell
+python risk\train_model.py
+python risk\risk_engine.py
 ```
 
 ---
@@ -391,6 +418,13 @@ per-request token-validation overhead, exposure, and the existing Phase 3
 metrics. `t0` is `risk_score_history.scored_at`; `t1` is
 `identity_enforcement_events.enforced_at`; `t2` is the first rejected request
 recorded in `first_rejected_at`.
+
+The Overview, Violations, Exposure, Risk evolution, Latency, and Operations
+tabs read the last completed matrix from `results/benchmark.json` and
+`results/stats.json`; they refresh every five seconds. A standalone
+`simulate_traffic.py` run updates live PostgreSQL telemetry only and does not
+change those aggregate files. Run the full `run_benchmark_matrix.py` command
+to regenerate the cards, then leave the dashboard open or refresh it.
 
 Troubleshooting:
 
