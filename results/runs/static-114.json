@@ -1,0 +1,9 @@
+{
+  "session_id": "static-114",
+  "mode": "static",
+  "seed": 114,
+  "requests": 500,
+  "duration_seconds": 1.0763680000090972,
+  "stdout": "session_id=static-114\nscenario=default\ntotal=500 blocked=174\nallowed_normal=258 blocked_normal=135\nblocked_threats=39 MISSED_threats=68\navg_latency_ms=46.320\navg_exposure_per_episode=0.082s\n",
+  "timestamp": "2026-11-01T13:59:03.343741+00:00"
+}

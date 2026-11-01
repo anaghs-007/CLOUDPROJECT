@@ -1,0 +1,9 @@
+{
+  "session_id": "adaptive_identity-112",
+  "mode": "adaptive_identity",
+  "seed": 112,
+  "requests": 500,
+  "duration_seconds": 1.4234718999941833,
+  "stdout": "session_id=adaptive_identity-112\nscenario=default\ntotal=500 blocked=500\nallowed_normal=0 blocked_normal=404\nblocked_threats=96 MISSED_threats=0\navg_latency_ms=40.944\navg_exposure_per_episode=0.000s\nrelogin_attempts=5 privileged_access_regained=0\n",
+  "timestamp": "2026-11-01T13:59:45.843553+00:00"
+}

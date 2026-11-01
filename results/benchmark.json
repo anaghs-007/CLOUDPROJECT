@@ -1,6 +1,6 @@
 {
   "meta": {
-    "git_commit": "f0028bdd7f048d1da6979186a1231c8c145c7217",
+    "git_commit": "039510b8b7a4c2ec5024c347c6d730cb1dee6e4d",
     "seeds": [
       101,
       102,
@@ -28,7 +28,7 @@
     "access_token_lifespan": 60,
     "revocation_check_mode": "backchannel",
     "hardware_os": "Windows 11 / AMD64 / Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-    "timestamp": "2026-11-01T13:33:04.317217+00:00",
+    "timestamp": "2026-11-01T14:03:33.227911+00:00",
     "mock": false
   },
   "modes": {
@@ -40,7 +40,7 @@
           "violations_missed": 103,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -49,7 +49,7 @@
           "violations_missed": 98,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -58,7 +58,7 @@
           "violations_missed": 104,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -67,7 +67,7 @@
           "violations_missed": 112,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -76,7 +76,7 @@
           "violations_missed": 119,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -85,7 +85,7 @@
           "violations_missed": 96,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -94,7 +94,7 @@
           "violations_missed": 94,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -103,7 +103,7 @@
           "violations_missed": 110,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -112,7 +112,7 @@
           "violations_missed": 107,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -121,62 +121,11 @@
           "violations_missed": 117,
           "violations_blocked": 0,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         }
       ],
-      "exposure_seconds": [
-        {
-          "seed": 101,
-          "episode_id": "none-101-threat",
-          "value": 0
-        },
-        {
-          "seed": 102,
-          "episode_id": "none-102-threat",
-          "value": 0
-        },
-        {
-          "seed": 103,
-          "episode_id": "none-103-threat",
-          "value": 0
-        },
-        {
-          "seed": 104,
-          "episode_id": "none-104-threat",
-          "value": 0
-        },
-        {
-          "seed": 105,
-          "episode_id": "none-105-threat",
-          "value": 0
-        },
-        {
-          "seed": 106,
-          "episode_id": "none-106-threat",
-          "value": 0
-        },
-        {
-          "seed": 107,
-          "episode_id": "none-107-threat",
-          "value": 0
-        },
-        {
-          "seed": 108,
-          "episode_id": "none-108-threat",
-          "value": 0
-        },
-        {
-          "seed": 109,
-          "episode_id": "none-109-threat",
-          "value": 0
-        },
-        {
-          "seed": 110,
-          "episode_id": "none-110-threat",
-          "value": 0
-        }
-      ],
+      "exposure_seconds": [],
       "update_latency_ms": [],
       "enforcement_call_ms": [],
       "time_to_effective_ms": []
@@ -274,58 +223,7 @@
           "validation_overhead_ms": null
         }
       ],
-      "exposure_seconds": [
-        {
-          "seed": 101,
-          "episode_id": "static-101-threat",
-          "value": 0
-        },
-        {
-          "seed": 102,
-          "episode_id": "static-102-threat",
-          "value": 0
-        },
-        {
-          "seed": 103,
-          "episode_id": "static-103-threat",
-          "value": 0
-        },
-        {
-          "seed": 104,
-          "episode_id": "static-104-threat",
-          "value": 0
-        },
-        {
-          "seed": 105,
-          "episode_id": "static-105-threat",
-          "value": 0
-        },
-        {
-          "seed": 106,
-          "episode_id": "static-106-threat",
-          "value": 0
-        },
-        {
-          "seed": 107,
-          "episode_id": "static-107-threat",
-          "value": 0
-        },
-        {
-          "seed": 108,
-          "episode_id": "static-108-threat",
-          "value": 0
-        },
-        {
-          "seed": 109,
-          "episode_id": "static-109-threat",
-          "value": 0
-        },
-        {
-          "seed": 110,
-          "episode_id": "static-110-threat",
-          "value": 0
-        }
-      ],
+      "exposure_seconds": [],
       "update_latency_ms": [],
       "enforcement_call_ms": [],
       "time_to_effective_ms": []
@@ -338,7 +236,7 @@
           "violations_missed": 0,
           "violations_blocked": 103,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -347,7 +245,7 @@
           "violations_missed": 0,
           "violations_blocked": 98,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -356,7 +254,7 @@
           "violations_missed": 0,
           "violations_blocked": 104,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -365,7 +263,7 @@
           "violations_missed": 0,
           "violations_blocked": 112,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -374,7 +272,7 @@
           "violations_missed": 0,
           "violations_blocked": 119,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -383,7 +281,7 @@
           "violations_missed": 0,
           "violations_blocked": 96,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -392,7 +290,7 @@
           "violations_missed": 0,
           "violations_blocked": 94,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -401,7 +299,7 @@
           "violations_missed": 0,
           "violations_blocked": 110,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -410,7 +308,7 @@
           "violations_missed": 0,
           "violations_blocked": 107,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -419,62 +317,11 @@
           "violations_missed": 0,
           "violations_blocked": 117,
           "false_denies": 0,
-          "policy_changes": 500,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         }
       ],
-      "exposure_seconds": [
-        {
-          "seed": 101,
-          "episode_id": "adaptive-101-threat",
-          "value": 0
-        },
-        {
-          "seed": 102,
-          "episode_id": "adaptive-102-threat",
-          "value": 0
-        },
-        {
-          "seed": 103,
-          "episode_id": "adaptive-103-threat",
-          "value": 0
-        },
-        {
-          "seed": 104,
-          "episode_id": "adaptive-104-threat",
-          "value": 0
-        },
-        {
-          "seed": 105,
-          "episode_id": "adaptive-105-threat",
-          "value": 0
-        },
-        {
-          "seed": 106,
-          "episode_id": "adaptive-106-threat",
-          "value": 0
-        },
-        {
-          "seed": 107,
-          "episode_id": "adaptive-107-threat",
-          "value": 0
-        },
-        {
-          "seed": 108,
-          "episode_id": "adaptive-108-threat",
-          "value": 0
-        },
-        {
-          "seed": 109,
-          "episode_id": "adaptive-109-threat",
-          "value": 0
-        },
-        {
-          "seed": 110,
-          "episode_id": "adaptive-110-threat",
-          "value": 0
-        }
-      ],
+      "exposure_seconds": [],
       "update_latency_ms": [],
       "enforcement_call_ms": [],
       "time_to_effective_ms": []
@@ -487,7 +334,7 @@
           "violations_missed": 0,
           "violations_blocked": 103,
           "false_denies": 397,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -496,7 +343,7 @@
           "violations_missed": 0,
           "violations_blocked": 98,
           "false_denies": 402,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -505,7 +352,7 @@
           "violations_missed": 0,
           "violations_blocked": 104,
           "false_denies": 396,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -514,7 +361,7 @@
           "violations_missed": 0,
           "violations_blocked": 112,
           "false_denies": 388,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -523,7 +370,7 @@
           "violations_missed": 0,
           "violations_blocked": 119,
           "false_denies": 381,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -532,7 +379,7 @@
           "violations_missed": 0,
           "violations_blocked": 96,
           "false_denies": 404,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -541,7 +388,7 @@
           "violations_missed": 0,
           "violations_blocked": 94,
           "false_denies": 406,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -550,7 +397,7 @@
           "violations_missed": 0,
           "violations_blocked": 110,
           "false_denies": 390,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -559,7 +406,7 @@
           "violations_missed": 0,
           "violations_blocked": 107,
           "false_denies": 393,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -568,7 +415,7 @@
           "violations_missed": 0,
           "violations_blocked": 117,
           "false_denies": 383,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         }
       ],
@@ -585,7 +432,7 @@
           "violations_missed": 0,
           "violations_blocked": 103,
           "false_denies": 397,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -594,7 +441,7 @@
           "violations_missed": 0,
           "violations_blocked": 98,
           "false_denies": 402,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -603,7 +450,7 @@
           "violations_missed": 0,
           "violations_blocked": 104,
           "false_denies": 396,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -612,7 +459,7 @@
           "violations_missed": 0,
           "violations_blocked": 112,
           "false_denies": 388,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -621,7 +468,7 @@
           "violations_missed": 0,
           "violations_blocked": 119,
           "false_denies": 381,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -630,7 +477,7 @@
           "violations_missed": 0,
           "violations_blocked": 96,
           "false_denies": 404,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -639,7 +486,7 @@
           "violations_missed": 0,
           "violations_blocked": 94,
           "false_denies": 406,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -648,7 +495,7 @@
           "violations_missed": 0,
           "violations_blocked": 110,
           "false_denies": 390,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -657,7 +504,7 @@
           "violations_missed": 0,
           "violations_blocked": 107,
           "false_denies": 393,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         },
         {
@@ -666,7 +513,7 @@
           "violations_missed": 0,
           "violations_blocked": 117,
           "false_denies": 383,
-          "policy_changes": 5,
+          "policy_changes": 0,
           "validation_overhead_ms": null
         }
       ],

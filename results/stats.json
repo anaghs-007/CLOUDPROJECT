@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-01T13:33:04.317217+00:00",
+  "generated_at": "2026-11-01T14:03:33.227911+00:00",
   "meta": {
-    "git_commit": "f0028bdd7f048d1da6979186a1231c8c145c7217",
+    "git_commit": "039510b8b7a4c2ec5024c347c6d730cb1dee6e4d",
     "seeds": [
       101,
       102,
@@ -29,7 +29,7 @@
     "access_token_lifespan": 60,
     "revocation_check_mode": "backchannel",
     "hardware_os": "Windows 11 / AMD64 / Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
-    "timestamp": "2026-11-01T13:33:04.317217+00:00",
+    "timestamp": "2026-11-01T14:03:33.227911+00:00",
     "mock": false
   },
   "mode_statistics": {
@@ -73,13 +73,13 @@
       },
       "policy_changes": {
         "n": 10,
-        "mean": 500.0,
+        "mean": 0.0,
         "std": 0.0,
-        "median": 500.0,
-        "p95": 500.0,
+        "median": 0.0,
+        "p95": 0.0,
         "ci_95": [
-          500.0,
-          500.0
+          0.0,
+          0.0
         ],
         "low_sample_size": true
       },
@@ -96,7 +96,7 @@
         "low_sample_size": true
       },
       "exposure_seconds": {
-        "n": 10,
+        "n": 0,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -207,7 +207,7 @@
         "low_sample_size": true
       },
       "exposure_seconds": {
-        "n": 10,
+        "n": 0,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -295,13 +295,13 @@
       },
       "policy_changes": {
         "n": 10,
-        "mean": 500.0,
+        "mean": 0.0,
         "std": 0.0,
-        "median": 500.0,
-        "p95": 500.0,
+        "median": 0.0,
+        "p95": 0.0,
         "ci_95": [
-          500.0,
-          500.0
+          0.0,
+          0.0
         ],
         "low_sample_size": true
       },
@@ -318,7 +318,7 @@
         "low_sample_size": true
       },
       "exposure_seconds": {
-        "n": 10,
+        "n": 0,
         "mean": 0.0,
         "std": 0.0,
         "median": 0.0,
@@ -406,13 +406,13 @@
       },
       "policy_changes": {
         "n": 10,
-        "mean": 5.0,
+        "mean": 0.0,
         "std": 0.0,
-        "median": 5.0,
-        "p95": 5.0,
+        "median": 0.0,
+        "p95": 0.0,
         "ci_95": [
-          5.0,
-          5.0
+          0.0,
+          0.0
         ],
         "low_sample_size": true
       },
@@ -517,13 +517,13 @@
       },
       "policy_changes": {
         "n": 10,
-        "mean": 5.0,
+        "mean": 0.0,
         "std": 0.0,
-        "median": 5.0,
-        "p95": 5.0,
+        "median": 0.0,
+        "p95": 0.0,
         "ci_95": [
-          5.0,
-          5.0
+          0.0,
+          0.0
         ],
         "low_sample_size": true
       },

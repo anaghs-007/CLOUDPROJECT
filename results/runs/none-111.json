@@ -1,0 +1,9 @@
+{
+  "session_id": "none-111",
+  "mode": "none",
+  "seed": 111,
+  "requests": 500,
+  "duration_seconds": 0.9760276000015438,
+  "stdout": "session_id=none-111\nscenario=default\ntotal=500 blocked=0\nallowed_normal=408 blocked_normal=0\nblocked_threats=0 MISSED_threats=92\navg_latency_ms=42.739\navg_exposure_per_episode=0.065s\n",
+  "timestamp": "2026-11-01T13:58:37.214440+00:00"
+}

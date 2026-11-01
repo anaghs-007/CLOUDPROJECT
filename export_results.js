@@ -47,11 +47,22 @@ function loadRunSummary(sessionId) {
 async function exportResults() {
   const client = await pool.connect();
   try {
+    const manifestPath = path.join(__dirname, 'results', 'benchmark.meta.json');
+    let manifest = {};
+    if (fs.existsSync(manifestPath)) {
+      try { manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')); } catch (_) { manifest = {}; }
+    }
+    const configuredSeeds = new Set((manifest.seeds || []).map((seed) => Number(seed)));
     const runsDir = path.join(__dirname, 'results', 'runs');
     const matrixSessions = fs.existsSync(runsDir)
       ? fs.readdirSync(runsDir)
         .filter((name) => name.endsWith('.json'))
         .map((name) => path.basename(name, '.json'))
+        .filter((sessionId) => {
+          if (configuredSeeds.size === 0) return true;
+          const match = sessionId.match(/-(\d+)$/);
+          return match && configuredSeeds.has(Number(match[1]));
+        })
       : [];
     if (matrixSessions.length === 0) {
       throw new Error('No benchmark run manifests found in results/runs. Run run_benchmark_matrix.py first.');
@@ -229,11 +240,6 @@ async function exportResults() {
 
     const seedsArr = seedsFound.size > 0 ? Array.from(seedsFound).sort((a,b)=>a-b) : [101, 102, 103, 104, 105, 106, 107, 108, 109, 110];
 
-    const manifestPath = path.join(__dirname, 'results', 'benchmark.meta.json');
-    let manifest = {};
-    if (fs.existsSync(manifestPath)) {
-      try { manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')); } catch (_) { manifest = {}; }
-    }
     const expectedSeeds = manifest.seeds || [];
     const expectedRequests = Number(manifest.requests_per_run || 0);
     const invalidRuns = allMetrics.filter((run) => {
